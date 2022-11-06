@@ -8,3 +8,4 @@
 /dataSources/
 /dataSources.local.xml
 .idea
+/CodeToImageGenerator/config.json
