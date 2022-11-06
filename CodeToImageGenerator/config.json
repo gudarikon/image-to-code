@@ -1,19 +1,12 @@
 {
-  "visible_lines": 13,
-  "visible_symbols": 160,
-  "code_folder": "C:/data/code",
-  "screenshot_folder": "C:/data/complete_images",
-  "screenshot_code_folder": "C:/data/code_images",
+  "visible_lines": -1,
+  "visible_symbols": -1,
+  "code_folder": "set code folder",
+  "screenshot_folder": "set full screenshots folder",
+  "screenshot_code_folder": "set code-only screenshots folder",
   "id": 1,
-  "suffixes": [
-    ".py"
-  ],
-  "visited_files": [
-  ],
-  "repo_path": "C:/Users/alex/PycharmProjects/CodeToImage",
-  "repo_files": {
-    "repo_parser.py": 48,
-    "config.py": 35,
-    "main.py": 210
-  }
+  "suffixes": [".java"],
+  "visited_files": [],
+  "repo_path": "Set absolute path here",
+  "repo_files": {}
 }
