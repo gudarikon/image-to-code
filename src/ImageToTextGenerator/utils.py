@@ -2,6 +2,7 @@ from pathlib import Path
 
 from PIL import Image
 
+
 def prepare_image(path_to_img: Path) -> Image:
     """
     Turns image to Black-White mode and adds background frame
