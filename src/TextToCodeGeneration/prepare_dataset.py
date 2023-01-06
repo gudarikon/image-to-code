@@ -8,6 +8,7 @@ from tqdm import tqdm
 
 from utils import preprocess_text
 
+
 @click.argument("image_folder", type=Path)
 @click.argument("code_folder", type=Path)
 @click.argument("tesseract_preds", type=Path)

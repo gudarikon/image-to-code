@@ -4,7 +4,7 @@ from pathlib import Path
 import click
 from tqdm import tqdm
 
-from ImageToTextGenerator.img_to_text import img_to_text
+from .img_to_text import img_to_text
 
 
 @click.argument("images_folder", type=Path)
