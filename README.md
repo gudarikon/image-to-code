@@ -34,8 +34,10 @@ the* [Editor | General | Breadcrumbs](https://www.jetbrains.com/help/pycharm/set
 
    
 3. remove gutter icons: right click in gutter -> Configure Gutter Icons... -> Show gutter icons (Off)
-
 4. open filetree and move it to the left, as far as it can go.
+5. set language to English.
+6. Compact View of inspections (top right corner)
+7. Remove ligatures
 
 ## Config
 config is stored in config.json. Here you can specify  data folders and change path to repository that is opened in intellij IDE. **If you manually moved Run panel or filetree panel, change visible_lines and visible_symbols to -1 and move it as you did in preparation steps**
