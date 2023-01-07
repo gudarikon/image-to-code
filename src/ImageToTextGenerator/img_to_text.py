@@ -1,22 +1,24 @@
 from pathlib import Path
 
 import click
-import pytesseract
+import numpy as np
+from paddleocr import PaddleOCR
 
 from utils import prepare_image
 
 
-def img_to_text(img_path: Path, tesseract_path: str):
-    pytesseract.pytesseract.tesseract_cmd = tesseract_path
+def paddle_img_to_text(img_path: Path):
+    ocr = PaddleOCR(use_angle_cls=True, lang="en")
     image = prepare_image(img_path)
-    text = pytesseract.image_to_string(image, config='--psm 4')
-    return text
+    result = ocr.ocr(np.array(image), cls=False)[0]
+    texts = [line[1][0] for line in result]
+    texts = "\n".join(texts)
+    return texts
 
 
 @click.argument("img_path", type=Path)
-@click.argument("tesseract_path", type=str)
-def func_img_to_text(img_path: Path, tesseract_path: str):
-    print(img_to_text(img_path, tesseract_path))
+def func_img_to_text(img_path: Path):
+    print(paddle_img_to_text(img_path))
 
 
 f_img_to_text = click.command()(func_img_to_text)
