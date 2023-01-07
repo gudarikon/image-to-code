@@ -1,5 +1,6 @@
 import json
 
+
 class Config:
     visible_lines: int
     visible_symbols: int
