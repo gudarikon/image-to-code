@@ -43,13 +43,8 @@ def to_start_line():
     Move caret to `line_number`, that will be displayed as the top line of visible code.
     1. Move to (`line_number` + `visible_lines_number`) number
     2. Move caret (`visible_lines_number` - 1) up. That way `line_number` will be the topmost line
-    :param line_number:
-    :param total_lines: number of lines in file. Should be bigger than `visible_lines_number`
     """
     # scroll is unreliable because it is different from time to time
-    # pyautogui.scroll(-400, x=400, y=400)
-    # pyautogui.moveTo(800, TOP_BOUND + 10)
-    # pyautogui.click()
     pyautogui.hotkey("ctrl", "home")
 
 
@@ -153,9 +148,6 @@ def change_visible_symbols(num_symbols: int = 30, lines_num: int = 100):
             - (num_symbols + 1) * SYMBOL_WIDTH, 0, 0.1)  # not counting num_symbols
         pyautogui.mouseUp(button='left')
         config.visible_symbols = num_symbols
-        # pyautogui.mouseDown(RIGHT_BOUND  # move from right to left
-        #                     - log10(200) * DIGIT_INC  # not counting gutter
-        #                     - (config.visible_symbols + 1) * SYMBOL_WIDTH, 200, button="left")
         #
 
 
@@ -164,7 +156,6 @@ def calculate_bounds(lines_num: int) -> Tuple[float, float, float, float]:
     Calculate bounds of code rectangle
     :return: left, top, width, height of code rectangle
     """
-    left = LEFT_BOUND + GUTTER_BASE + DIGIT_INC * log10(lines_num)
     return RIGHT_BOUND - (config.visible_symbols + 1) * SYMBOL_WIDTH, \
            TOP_BOUND, \
            (config.visible_symbols + 1) * SYMBOL_WIDTH, \
@@ -197,20 +188,5 @@ def traverse_repo():
     save_to_file(config.__dict__, "config.json")
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == "__main__":
     traverse_repo()
-    # global config
-    # config = Config(**get_file("C:/data/config.json"))
-    # save_to_file(res.__dict__, "C:/data/config.json")
-    # print("Start")
-    # time.sleep(3)
-    # open_file("src/commonMain/kotlin/token/declaration/TokenImport.kt")
-    # to_random_line(29)
-    # to_line(26, 40)
-    # move_n_lines_rel(3)
-    #   save_screenshot()
-    # change_visible_symbols()
-
-    # change_visible_symbols(6)
-    # change_visible_lines_number(6)
