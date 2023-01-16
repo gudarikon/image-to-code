@@ -28,7 +28,7 @@ def prepare_dataset(image_folder: Path, code_folder: Path, ocr_preds: Path, stor
 
     df = pd.DataFrame({"image_path": image_paths,
                        "source_code": codes,
-                       "ocr_preds:": preds})
+                       "predicted_code": preds})
     df.to_csv(store_path, encoding="utf-16")
 
 
