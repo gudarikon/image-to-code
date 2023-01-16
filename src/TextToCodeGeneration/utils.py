@@ -1,5 +1,4 @@
 from typing import List, Union
-import re
 
 
 def preprocess_text(source_text: Union[str, List[str]]):
