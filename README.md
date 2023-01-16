@@ -45,7 +45,8 @@ config is stored in config.json. Here you can specify  data folders and change p
 ## Stopping screenshots
 If you want to stop the program, move your mouse during screenshots. The program will exit after current file is finished. All traversed files are saved.
 
-# Tesseract
+# ~~Tesseract~~
+UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 
 First of all one should install Tesseract on its his/her device.
 
