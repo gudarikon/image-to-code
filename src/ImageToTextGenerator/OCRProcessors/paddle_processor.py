@@ -2,9 +2,10 @@ import numpy as np
 from paddleocr import PaddleOCR
 
 from .ocr_processor import OCRProcessor
+from src import Singleton
 
 
-class PaddleProcessor(OCRProcessor):
+class PaddleProcessor(OCRProcessor, metaclass=Singleton):
 
     def __init__(self, **kwargs):
         self.lang = kwargs.get("lang", "en")
