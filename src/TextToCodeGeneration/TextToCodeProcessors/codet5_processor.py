@@ -6,15 +6,17 @@ from src import Singleton
 
 
 class CodeT5Processor(TextToCodeProcessor, metaclass=Singleton):
-    def __init__(self, model_bin_path: str):
+    def __init__(self, **kwargs):
         """
         You can download model from:
         https://drive.google.com/file/d/19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj/view
         :param model_bin_path: local path to binary model file
         """
+        assert kwargs.get("model_bin_path", "") != "", "CodeT5Processor should get `model_bin_path` argument with" \
+                                                       " path to model's bin file "
         self._tokenizer = RobertaTokenizer.from_pretrained('Salesforce/codet5-small')
         config = T5Config.from_pretrained('Salesforce/codet5-small')
-        self._model = T5ForConditionalGeneration.from_pretrained(model_bin_path, config=config)
+        self._model = T5ForConditionalGeneration.from_pretrained(kwargs["model_bin_path"], config=config)
         self._processor = CodeT5DataProcessor()
 
     def predict(self, text: str, max_length: str = -1) -> str:
