@@ -1,7 +1,11 @@
 from transformers import T5Config, RobertaTokenizer, T5ForConditionalGeneration
 
+from .text_to_code_processor import TextToCodeProcessor
+from src.TextToCodeGeneration.DataProcessors import CodeT5DataProcessor
+from src import Singleton
 
-class Text2CodeModel:
+
+class CodeT5Processor(TextToCodeProcessor, metaclass=Singleton):
     def __init__(self, model_bin_path: str):
         """
         You can download model from:
@@ -10,7 +14,8 @@ class Text2CodeModel:
         """
         self._tokenizer = RobertaTokenizer.from_pretrained('Salesforce/codet5-small')
         config = T5Config.from_pretrained('Salesforce/codet5-small')
-        self._model = T5ForConditionalGeneration.from_pretrained(model_bin_path,  config=config)
+        self._model = T5ForConditionalGeneration.from_pretrained(model_bin_path, config=config)
+        self._processor = CodeT5DataProcessor()
 
     def predict(self, text: str, max_length: str = -1) -> str:
         """
@@ -19,6 +24,7 @@ class Text2CodeModel:
         :param max_length: max tokens in output (-1 to not specify)
         :return: fixed code
         """
+        text = self._processor.process(text)
         input_ids = self._tokenizer(text, return_tensors="pt").input_ids
         if max_length == -1:
             max_length = len(input_ids[0])
