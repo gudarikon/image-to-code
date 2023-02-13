@@ -1,6 +1,0 @@
-com.qooqle.protobuf.MessaqeOrBuilder
-/**
-*<code>bool is_invalid = 1;</code>
-* @return The isInvalid.
-*/
-boolean getIsInvalid();

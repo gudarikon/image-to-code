@@ -8,5 +8,5 @@ pyautogui~=0.9.53
 paddlepaddle-gpu~=2.4.1
 paddleocr~=2.6.1
 pytesseract~=0.3.10
-transformers~=4.15.0
+transformers>=4.15.0
 torch

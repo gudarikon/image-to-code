@@ -1,26 +1,35 @@
+import json
 from pathlib import Path
 from typing import List, Union
 
 import click
-from utils import preprocess_text
-from model import Text2CodeModel
+
+from TextToCodeGeneration.TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
+import TextToCodeGeneration.TextToCodeProcessors as T2CPr
 
 
-# TODO in telegram bot we should use singleton model!
-def text_to_code(source_text: Union[str, List[str]], model_path: str = "./pytorch_model.bin"):
-    source_text = preprocess_text(source_text)
-    model = Text2CodeModel(model_path)
-    return model.predict(source_text)
+def _get_processor(text_to_code_processor: str):
+    assert text_to_code_processor in T2CPr.__all__, f"No given processor found. Try one of {T2CPr.__all__}"
+    processor = getattr(T2CPr, text_to_code_processor)
+    return processor
 
 
-# you can launch like:
-# python3 ./text_to_code.py code_example.txt '/path/to/pytorch_model.bin'
+def text_to_code(text: Union[str, List[str]], text_to_code_processor: str, processor_config: dict):
+    processor = _get_processor(text_to_code_processor)
+    processor_obj: TextToCodeProcessor = processor(**processor_config)
+    text = processor_obj.predict(text)
+    return text
+
+
 @click.argument("text_path", type=Path)
-@click.argument("model_path", type=Path)
-def func_text_to_code(text_path: Path, model_path: Path):
+@click.argument("text_to_code_processor", type=str)
+@click.argument("path_to_processor_config", type=Path)
+def func_text_to_code(text_path: Path, text_to_code_processor: str, path_to_processor_config: Path):
     with open(text_path, "r") as f:
         text = [line.rstrip() for line in f]
-    print(text_to_code(text, str(model_path)))
+    with open(path_to_processor_config, "r") as fr:
+        config = json.load(fr)
+    print(text_to_code(text, text_to_code_processor, config))
 
 
 f_text_to_code = click.command()(func_text_to_code)
