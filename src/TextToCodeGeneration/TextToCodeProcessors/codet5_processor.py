@@ -2,10 +2,10 @@ from transformers import T5Config, RobertaTokenizer, T5ForConditionalGeneration
 
 from .text_to_code_processor import TextToCodeProcessor
 from src.TextToCodeGeneration.DataProcessors import CodeT5DataProcessor
-from src import Singleton
+from src import ABCSingleton
 
 
-class CodeT5Processor(TextToCodeProcessor, metaclass=Singleton):
+class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
     def __init__(self, **kwargs):
         """
         You can download model from:

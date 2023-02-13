@@ -1,10 +1,10 @@
 import pytesseract
 
 from .ocr_processor import OCRProcessor
-from src import Singleton
+from src import ABCSingleton
 
 
-class TesseractProcessor(OCRProcessor, metaclass=Singleton):
+class TesseractProcessor(OCRProcessor, metaclass=ABCSingleton):
 
     def __init__(self, **kwargs):
         assert kwargs.get("path_to_tesseract", "") != "", "You should pass Tesseract.exe file's path as " \

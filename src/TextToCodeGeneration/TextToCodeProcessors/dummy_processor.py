@@ -1,10 +1,10 @@
 from typing import List, Union
 
 from .text_to_code_processor import TextToCodeProcessor
-from src import Singleton
+from src import ABCSingleton
 
 
-class DummyProcessor(TextToCodeProcessor, metaclass=Singleton):
+class DummyProcessor(TextToCodeProcessor, metaclass=ABCSingleton):
     def __init__(self, **kwargs):
         """
         Processor that does nothing
