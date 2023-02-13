@@ -4,8 +4,8 @@ from typing import List, Union
 
 import click
 
-from TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
-import TextToCodeProcessors as T2CPr
+from TextToCodeGeneration.TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
+import TextToCodeGeneration.TextToCodeProcessors as T2CPr
 
 
 def _get_processor(text_to_code_processor: str):
@@ -22,7 +22,8 @@ def text_to_code(text: Union[str, List[str]], text_to_code_processor: str, proce
 
 
 @click.argument("text_path", type=Path)
-@click.argument("model_path", type=Path)
+@click.argument("text_to_code_processor", type=str)
+@click.argument("path_to_processor_config", type=Path)
 def func_text_to_code(text_path: Path, text_to_code_processor: str, path_to_processor_config: Path):
     with open(text_path, "r") as f:
         text = [line.rstrip() for line in f]
