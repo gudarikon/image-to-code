@@ -45,7 +45,8 @@ config is stored in config.json. Here you can specify  data folders and change p
 ## Stopping screenshots
 If you want to stop the program, move your mouse during screenshots. The program will exit after current file is finished. All traversed files are saved.
 
-# Tesseract
+# ~~Tesseract~~
+TODO: Fill info about used OCR
 
 First of all one should install Tesseract on its his/her device.
 
@@ -58,3 +59,8 @@ First of all one should install Tesseract on its his/her device.
   For Mac OS users. please install homebrew package **tesseract**.
   
 You may use function from scr/ImageToTextGenerator via click command to check functionality
+
+
+
+# Text2Code
+UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)

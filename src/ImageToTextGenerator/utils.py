@@ -1,15 +1,12 @@
-from pathlib import Path
-
 from PIL import Image
 
 
-def prepare_image(path_to_img: Path) -> Image:
+def prepare_image(image: Image) -> Image:
     """
     Turns image to Black-White mode and adds background frame
-    :param path_to_img: path to source image file
+    :param image: PIL Image object
     :return: prepared image
     """
-    image = Image.open(path_to_img)
     image = image.convert("L")
 
     img_w, img_h = image.size
