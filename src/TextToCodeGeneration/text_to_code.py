@@ -4,8 +4,8 @@ from typing import List, Union
 
 import click
 
-from TextToCodeGeneration.TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
-import TextToCodeGeneration.TextToCodeProcessors as T2CPr
+from src.TextToCodeGeneration.TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
+import src.TextToCodeGeneration.TextToCodeProcessors as T2CPr
 
 
 def _get_processor(text_to_code_processor: str):

@@ -64,3 +64,11 @@ You may use function from scr/ImageToTextGenerator via click command to check fu
 
 # Text2Code
 UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+
+
+# Inference
+For launching, you can do this for example:
+```shell
+cd image-to-code
+PYTHONPATH=./ python3 src/ImageToTextGenerator/img_to_text.py
+```

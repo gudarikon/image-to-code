@@ -4,9 +4,9 @@ from pathlib import Path
 import click
 from PIL import Image
 
-import ImageToTextGenerator.OCRProcessors as Op
-from ImageToTextGenerator.OCRProcessors.ocr_processor import OCRProcessor
-from ImageToTextGenerator.utils import prepare_image
+import OCRProcessors as Op
+from src.ImageToTextGenerator.OCRProcessors.ocr_processor import OCRProcessor
+from src.ImageToTextGenerator.utils import prepare_image
 
 
 def _get_processor(ocr_processor: str):
