@@ -70,5 +70,10 @@ UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 For launching, you can do this for example:
 ```shell
 cd image-to-code
-PYTHONPATH=./ python3 src/ImageToTextGenerator/img_to_text.py
+```
+
+```shell
+/image-to-code$ PYTHONPATH=./ python3 src/ImageToTextGenerator/img_to_text.py <some_image.png> PaddleProcessor ./resou
+rces/configs/paddle_config.json
+
 ```
