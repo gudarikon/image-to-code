@@ -14,3 +14,4 @@
 /src/CodeToImageGenerator/config.json
 src/TextToCodeGeneration/__pycache__/utils.cpython-38.pyc
 src/TextToCodeGeneration/__pycache__/*
+**/__pycache__/*
