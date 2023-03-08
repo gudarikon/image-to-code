@@ -67,13 +67,13 @@ UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 
 
 # Inference
-For launching, you can do this for example:
+For launching the whole pipeline you can do the following:
 ```shell
 cd image-to-code
 ```
 
 ```shell
-/image-to-code$ PYTHONPATH=./ python3 src/ImageToTextGenerator/img_to_text.py <some_image.png> PaddleProcessor ./resou
-rces/configs/paddle_config.json
-
+/image-to-code$ PYTHONPATH=./ python3 \
+                src/telegram_handler/pipeline_manager.py \
+                /mnt/c/Users/maxma/Desktop/1.png
 ```

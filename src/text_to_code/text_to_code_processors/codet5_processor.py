@@ -1,7 +1,7 @@
 from transformers import T5Config, RobertaTokenizer, T5ForConditionalGeneration
 
 from .text_to_code_processor import TextToCodeProcessor
-from src.TextToCodeGeneration.DataProcessors import CodeT5DataProcessor
+from src.text_to_code.data_processors import CodeT5DataProcessor
 from src import ABCSingleton
 
 

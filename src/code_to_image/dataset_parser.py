@@ -1,7 +1,7 @@
 import json
 from typing import TextIO
 
-from src.CodeToImageGenerator.main_old import MAX_SYMBOLS
+from src.code_to_image.main_old import MAX_SYMBOLS
 
 REPO_PATH = "C:\\Users\\alex\\Documents\\GitHub\\dataset_image_to_code\\src\\edu\\hse\\ru"
 JSONL_PATH = "C:\\Users\\alex\\Desktop\\java_test_0.jsonl"

@@ -4,14 +4,14 @@ from pathlib import Path
 import click
 from PIL import Image
 
-import OCRProcessors as Op
-from src.ImageToTextGenerator.OCRProcessors.ocr_processor import OCRProcessor
-from src.ImageToTextGenerator.utils import prepare_image
+import src.image_to_text.processors as processors
+from src.image_to_text.processors.ocr_processor import OCRProcessor
+from src.image_to_text.utils import prepare_image
 
 
 def _get_processor(ocr_processor: str):
-    assert ocr_processor in Op.__all__, f"No given processor found. Try one of {Op.__all__}"
-    processor = getattr(Op, ocr_processor)
+    assert ocr_processor in processors.__all__, f"No given processor found. Try one of {processors.__all__}"
+    processor = getattr(processors, ocr_processor)
     return processor
 
 
