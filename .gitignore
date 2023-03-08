@@ -11,5 +11,8 @@
 /dataSources/
 /dataSources.local.xml
 .idea
-/src/CodeToImageGenerator/config.json
-src/TextToCodeGeneration/__pycache__/utils.cpython-38.pyc
+/src/code_to_image/config.json
+src/text_to_code/__pycache__/utils.cpython-38.pyc
+src/text_to_code/__pycache__/*
+**/__pycache__/*
+**.bin

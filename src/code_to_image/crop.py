@@ -2,7 +2,7 @@ import json
 
 from PIL import Image
 
-from CodeToImageGenerator.config import create_config
+from .config import create_config
 
 
 def crop_code(json_file_path, json_file_id, json_cropped_folder_path="C:/data/cropped_code"):

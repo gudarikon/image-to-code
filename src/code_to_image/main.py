@@ -5,14 +5,14 @@ from typing import List, Tuple
 
 import pyautogui
 
-from src.CodeToImageGenerator.config import create_config, save_to_file
-from src.CodeToImageGenerator.main_old import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
+from src.code_to_image.config import create_config, save_to_file
+from src.code_to_image.main_old import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
     LINE_HEIGHT, \
     MAX_SYMBOLS, \
     RIGHT_BOUND, \
     SYMBOL_WIDTH, TOP_BOUND, change_visible_lines_number, \
     change_visible_symbols, move_n_lines_rel, open_file, to_start_line
-from src.CodeToImageGenerator.repo_parser import parse_repo
+from src.code_to_image.repo_parser import parse_repo
 
 config = create_config()
 

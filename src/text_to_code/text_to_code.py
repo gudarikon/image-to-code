@@ -4,13 +4,13 @@ from typing import List, Union
 
 import click
 
-from TextToCodeGeneration.TextToCodeProcessors.text_to_code_processor import TextToCodeProcessor
-import TextToCodeGeneration.TextToCodeProcessors as T2CPr
+from src.text_to_code.text_to_code_processors.text_to_code_processor import TextToCodeProcessor
+import src.text_to_code.text_to_code_processors as text_to_code_processors
 
 
 def _get_processor(text_to_code_processor: str):
-    assert text_to_code_processor in T2CPr.__all__, f"No given processor found. Try one of {T2CPr.__all__}"
-    processor = getattr(T2CPr, text_to_code_processor)
+    assert text_to_code_processor in text_to_code_processors.__all__, f"No given processor found. Try one of {text_to_code_processors.__all__}"
+    processor = getattr(text_to_code_processors, text_to_code_processor)
     return processor
 
 

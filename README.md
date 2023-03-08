@@ -64,3 +64,16 @@ You may use function from scr/ImageToTextGenerator via click command to check fu
 
 # Text2Code
 UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+
+
+# Inference
+For launching the whole pipeline you can do the following:
+```shell
+cd image-to-code
+```
+
+```shell
+/image-to-code$ PYTHONPATH=./ python3 \
+                src/telegram_handler/pipeline_manager.py \
+                /mnt/c/Users/maxma/Desktop/1.png
+```
