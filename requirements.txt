@@ -1,12 +1,13 @@
 typing~=3.7.4.3
-pillow~=9.3.0
+pillow~=9.4.0
 click~=8.0.3
-numpy==1.23.*
-tqdm~=4.64.1
-pandas~=1.5.2
+numpy~=1.21.5
+tqdm~=4.62.3
+pandas~=1.4.0
 pyautogui~=0.9.53
 paddlepaddle-gpu~=2.4.1
 paddleocr~=2.6.1
 pytesseract~=0.3.10
 transformers>=4.15.0
 torch
+aiogram
