@@ -5,8 +5,8 @@ from typing import List, Tuple
 
 import pyautogui
 
-from src.code_to_image.config import create_config, save_to_file
-from src.code_to_image.main_old import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
+from src.code_to_image.config_builder import ConfigBuilder
+from src.code_to_image.main_code_blocks import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
     LINE_HEIGHT, \
     MAX_SYMBOLS, \
     RIGHT_BOUND, \
@@ -14,7 +14,7 @@ from src.code_to_image.main_old import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
     change_visible_symbols, move_n_lines_rel, open_file, to_start_line
 from src.code_to_image.repo_parser import parse_repo
 
-config = create_config()
+config = ConfigBuilder().get_config()
 
 
 def save_screenshots(lines_num: int, max_symbols: int):
@@ -23,8 +23,8 @@ def save_screenshots(lines_num: int, max_symbols: int):
         region=calculate_bounds_updated(lines_num, max_symbols))
 
 
-def calculate_bounds_updated(lines_num: int, max_symbols: int) -> Tuple[
-    float, float, float, float]:
+def calculate_bounds_updated(lines_num: int, max_symbols: int) -> \
+        Tuple[float, float, float, float]:
     """
     Calculate bounds of code rectangle
     :return: left, top, width, height of code rectangle
@@ -44,38 +44,35 @@ def change_visible_symbols_back(num_symbols: int = 30, lines_num: int = 100):
     config.visible_symbols = num_symbols
 
 
-def traverse_repo():
+def traverse_repo(number_of_functions: int = 3000):
     if "repo_files" not in config.__dict__:
         config.repo_files = parse_repo(config.repo_path, config.suffixes)
         config.visited_files = set()
     for key in config.visited_files:
         config.repo_files.pop(key, None)
 
-    change_visible_lines_number(29)
+    change_visible_lines_number(config.visible_lines)
 
     for file in config.repo_files:
-        print(file)
-        if config.id > 3000:
-            print("Stop")
+        if config.id > number_of_functions:
             break
         change_visible_symbols(MAX_SYMBOLS, config.repo_files[file], should_change=True)
-        traverse_file_for_functions(file, config.repo_files[file])
+        traverse_file_for_functions(file)
         change_visible_symbols_back(MAX_SYMBOLS, config.repo_files[file])
         pyautogui.sleep(0.1)
         config.visited_files.add(file)
     config.visited_files = list(config.visited_files)
 
-    save_to_file(config.__dict__, "config.json")
+    ConfigBuilder().save_to_file()
 
 
-def traverse_file_for_functions(file_path: str, total_lines: int):
+def traverse_file_for_functions(file_path: str):
     open_file(file_path)
     to_start_line()
     functions = get_function_lengths(file_path)
 
-    move_n_lines_rel(30)
+    move_n_lines_rel(config.visible_lines + 1)
     for func, max_symbols in functions:
-        # print(length)
         pyautogui.sleep(0.2)
         save_screenshots(len(func), max_symbols)
         save_code_to_file(func)
@@ -94,7 +91,6 @@ def get_function_lengths(file_path) -> List[tuple]:
     res = []
     max_symbols = 0
     prev_line = ""
-    # current_func_size = 0
     current_func = []
     for i in range(0, len(lines)):
         line = lines[i]
@@ -103,19 +99,12 @@ def get_function_lengths(file_path) -> List[tuple]:
         if prev_line == "    }\n" and line == "\n":
             res.append((current_func[:-1], max_symbols))
             current_func = []
-            # current_func_size = -1
             max_symbols = 0
-        # current_func_size += 1
         prev_line = line
     return res
 
 
 if __name__ == "__main__":
-    # pyautogui.sleep(3)
-    # pyautogui.moveTo(LEFT_BOUND, BOTTOM_BOUND, 0.1)
     pyautogui.hotkey("alt", "tab")
     pyautogui.sleep(1)
-    # change_visible_symbols(MAX_SYMBOLS)
-    # pyautogui.sleep(0.2)
-    # change_visible_symbols_back(MAX_SYMBOLS)
     traverse_repo()

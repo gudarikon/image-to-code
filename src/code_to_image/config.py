@@ -1,34 +1,17 @@
-import json
-
-
 class Config:
-    visible_lines: int
+    visible_lines: int  # 29 for main_functions
     visible_symbols: int
+
     code_folder: str
     screenshot_folder: str
     screenshot_code_folder: str
-    id: int
+
+    id: int  # current id of generated screenshot
     repo_files: dict
     visited_files: set
     repo_path: str
     suffixes: list
+    code_search_functions_path: str
 
     def __init__(self, **entries):
         self.__dict__.update(entries)
-
-
-def create_config():
-    res = Config(**get_file("config.json"))
-    res.visited_files = set(res.visited_files)
-    return res
-
-
-def get_file(path: str):
-    with open(path, "r") as config_file:
-        res = json.loads(config_file.read())
-    return res
-
-
-def save_to_file(info, path: str):
-    with open(path, "w") as config_file:
-        config_file.write(json.dumps(info))

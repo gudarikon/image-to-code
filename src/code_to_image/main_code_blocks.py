@@ -8,24 +8,24 @@ from typing import List, Tuple
 
 import pyautogui
 
-from config import create_config, save_to_file
 from repo_parser import get_language, parse_repo
+from src.code_to_image.config_builder import ConfigBuilder
 
 DIGIT_INC = 9.5
 GUTTER_BASE = 35
 
-MAX_SYMBOLS = 170  # 177
+MAX_SYMBOLS = 170
 MIN_SYMBOLS = 10
 SYMBOL_WIDTH = 10
 LINE_HEIGHT = 27.5
 
 TOP_BOUND = 106
 BOTTOM_BOUND = 940
-RIGHT_BOUND = 1895  # 26
+RIGHT_BOUND = 1895
 LEFT_BOUND = 64
 
 spaces_in_tab = 4
-config = create_config()
+config = ConfigBuilder().get_config()
 
 
 def open_file(path: str):
@@ -73,10 +73,10 @@ def change_visible_lines_number(num_lines=30):
     config.visible_lines = num_lines
 
 
-def save_screenshots(lines_num: int):
+def save_screenshots():
     pyautogui.screenshot(Path(config.screenshot_folder) / (str(config.id) + ".png"))
     pyautogui.screenshot(Path(config.screenshot_code_folder) / (str(config.id) + ".png"),
-                         region=calculate_bounds(lines_num))
+                         region=calculate_bounds())
 
 
 def save_file(file_path: str, total_lines: int):
@@ -98,7 +98,6 @@ def save_file(file_path: str, total_lines: int):
             else:
                 move_n_lines_rel(stop - caret_line)
             caret_line = stop
-            print(caret_line)
             sleep(1)
             text, is_trimmed = process_text(lines[stop - 1:stop + config.visible_lines - 1])
             if not is_trimmed:
@@ -106,7 +105,7 @@ def save_file(file_path: str, total_lines: int):
                           'w') as code_file:
                     code_file.write(
                         json.dumps({"code": text, "language": get_language(file_path)}))
-                save_screenshots(total_lines)
+                save_screenshots()
                 config.id += 1
 
 
@@ -120,7 +119,6 @@ def create_random_screen_stops(total_lines: int):
     while current + config.visible_lines < total_lines:
         res.append(current)
         current += random.randint(config.visible_lines, 2 * config.visible_lines)
-    print(res[:len(res) - 1])
     return res[:len(res) - 1]
 
 
@@ -152,7 +150,7 @@ def change_visible_symbols(num_symbols: int = 30, lines_num: int = 100,
         config.visible_symbols = num_symbols
 
 
-def calculate_bounds(lines_num: int) -> Tuple[float, float, float, float]:
+def calculate_bounds() -> Tuple[float, float, float, float]:
     """
     Calculate bounds of code rectangle
     :return: left, top, width, height of code rectangle
@@ -183,10 +181,10 @@ def traverse_repo():
         newx, newy = pyautogui.position()
         if abs(x - newx) > 10 or abs(y - newy) > 10:
             config.visited_files = list(config.visited_files)
-            save_to_file(config.__dict__, "config.json")
+            ConfigBuilder().save_to_file()
             return
     config.visited_files = list(config.visited_files)
-    save_to_file(config.__dict__, "config.json")
+    ConfigBuilder().save_to_file("config.json")
 
 
 if __name__ == "__main__":
