@@ -1,5 +1,6 @@
 import json
 from math import log10
+import os.path
 from pathlib import Path
 import platform
 import random
@@ -8,7 +9,7 @@ from typing import List, Tuple
 
 import pyautogui
 
-from repo_parser import get_language, parse_repo
+from src.code_to_image.repo_parser import get_language, parse_repo
 from src.code_to_image.config_builder import ConfigBuilder
 
 DIGIT_INC = 9.5
@@ -109,6 +110,15 @@ def save_file(file_path: str, total_lines: int):
                 config.id += 1
 
 
+def assert_empty_folders():
+    if hasattr(config, "screenshot_code_folder"):
+        if len(os.listdir(config.screenshot_code_folder)) != 0:
+            raise AssertionError("use empty folder for code screenshots")
+    if len(os.listdir(config.code_folder)) != 0:
+        raise AssertionError("use empty folder for code jsons")
+    if len(os.listdir(config.screenshot_folder)) != 0:
+        raise AssertionError("use empty folder for screenshots")
+
 def create_random_screen_stops(total_lines: int):
     """
     Create random lines where screenshot will be taken
@@ -169,6 +179,7 @@ def traverse_file(file_path: str, total_lines: int):
 
 
 def traverse_repo():
+    assert_empty_folders()
     if "repo_files" not in config.__dict__:
         config.repo_files = parse_repo(config.repo_path, config.suffixes)
         config.visited_files = set()

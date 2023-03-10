@@ -10,7 +10,7 @@ from src.code_to_image.main_code_blocks import DIGIT_INC, GUTTER_BASE, LEFT_BOUN
     LINE_HEIGHT, \
     MAX_SYMBOLS, \
     RIGHT_BOUND, \
-    SYMBOL_WIDTH, TOP_BOUND, change_visible_lines_number, \
+    SYMBOL_WIDTH, TOP_BOUND, assert_empty_folders, change_visible_lines_number, \
     change_visible_symbols, move_n_lines_rel, open_file, to_start_line
 from src.code_to_image.repo_parser import parse_repo
 
@@ -45,6 +45,7 @@ def change_visible_symbols_back(num_symbols: int = 30, lines_num: int = 100):
 
 
 def traverse_repo(number_of_functions: int = 3000):
+    assert_empty_folders()
     if "repo_files" not in config.__dict__:
         config.repo_files = parse_repo(config.repo_path, config.suffixes)
         config.visited_files = set()

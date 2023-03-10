@@ -1,4 +1,5 @@
 import json
+import os
 
 from .config import Config
 
@@ -23,19 +24,29 @@ def get_file(path: str):
     return res
 
 
-def create_config():
-    res = Config(**get_file("config.json"))
-    res.visited_files = set(res.visited_files)
+def create_config(path: str):
+    if not os.path.isfile(path):
+        return None
+    res = Config(**get_file(path))
+    if hasattr(res,"visible_lines"):
+        res.visited_files = set(res.visited_files)
     return res
 
 
 class ConfigBuilder(metaclass=ConfigBuilderMeta):
-    current_config = create_config()
+    current_config: Config
+
+    def __init__(self, path: str = "config.json"):
+        self.current_config = create_config(path)
+
     """
     Singleton for changing and getting Config
     """
 
-    def get_config(self) -> Config:
+    def get_config(self, path: str = None) -> Config:
+        if path is not None:
+            self.current_config = create_config(path)
+        return self.current_config
         pass
 
     def update_repo_path(self, repo_path: str):
