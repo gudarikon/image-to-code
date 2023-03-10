@@ -5,7 +5,11 @@ from src.code_to_image.dataset_parser import *
 
 class TestDatasetParser(TestCase):
     """
-    Check format of functions parsing.
+    Check format of functions file:
+    1. function number of lines is not bigger than MAX_LINES (28)
+    2. function file is a class to prevent error highlighting
+    3. function file ends with line breaks to make possible
+    moving caret down for screenshotting last functions
     """
 
     def test_parsing(self):
@@ -27,6 +31,6 @@ class TestDatasetParser(TestCase):
             if symbol == "\n":
                 line_count += 1
                 if prev_symbol == "\n":
-                    assert line_count <= 28
+                    assert line_count <= DatasetParser.MAX_LINES
                     line_count = 0
             prev_symbol = symbol
