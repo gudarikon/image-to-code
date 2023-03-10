@@ -37,13 +37,14 @@ async def handle_photo(message):
 
     ocr_text, code = img_to_code(image, return_ocr_result=True)
 
-    await message.answer(text="ocr text:")
-    await message.answer(text=f"`{ocr_text}`", parse_mode="Markdown")
-    await message.answer(text="code:")
-    await message.answer(text=f"`{code}`", parse_mode="Markdown")
+    text=f"ocr text:\n`{ocr_text}`\ncode:\n{code}"
+    await message.answer(text=text, parse_mode="Markdown", reply=True)
 
     # delete image
-    os.remove(file_path)
+    try:
+        os.remove(file_path)
+    except FileNotFoundError:
+        logging.warning(f"file to delete was not found: {file_path}")
 
 
 if __name__ == "__main__":
