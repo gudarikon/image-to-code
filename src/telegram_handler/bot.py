@@ -38,6 +38,7 @@ async def handle_photo(message):
     ocr_text, code = img_to_code(image, return_ocr_result=True)
 
     text=f"ocr text:\n`{ocr_text}`\ncode:\n`{code}`"
+    logging.info(text)
     await message.answer(text=text, parse_mode="Markdown", reply=True)
 
     # delete image
