@@ -4,6 +4,9 @@ from src.code_to_image.repo_parser import *
 
 
 class TestRepoParser(TestCase):
+    """
+    Check that repo parser finds files by prefix
+    """
     def test_parse_repo(self):
         repo_files = parse_repo("../src", [".py"])
         root = Path("../src/code_to_image")
