@@ -35,8 +35,12 @@ async def handle_photo(message):
     image = Image.open(file_path)
     logging.info(image)
 
-    code = img_to_code(image)
-    await message.answer(text=code)
+    ocr_text, code = img_to_code(image, return_ocr_result=True)
+
+    await message.answer(text="ocr text:")
+    await message.answer(text=f"```{ocr_text}```", parse_mode="Markdown")
+    await message.answer(text="code:")
+    await message.answer(text=f"```{code}```", parse_mode="Markdown")
 
     # delete image
     os.remove(file_path)

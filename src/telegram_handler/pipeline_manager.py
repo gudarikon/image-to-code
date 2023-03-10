@@ -11,7 +11,8 @@ def img_to_code(image: Image,
                 ocr_processor="PaddleProcessor",
                 ocr_config=None,
                 text_to_code_processor="CodeT5Processor",
-                processor_config=None):
+                processor_config=None,
+                return_ocr_result=False):
     if ocr_config is None and ocr_processor == "PaddleProcessor":
         ocr_config = {"lang": "en"}
     if processor_config is None and text_to_code_processor == "CodeT5Processor":
@@ -19,7 +20,10 @@ def img_to_code(image: Image,
     raw_text = img_to_text(image, ocr_processor, ocr_config)
     parsed_text = text_to_code(raw_text, text_to_code_processor, processor_config)
 
-    return parsed_text
+    if return_ocr_result:
+        return raw_text, parsed_text
+    else:
+        return parsed_text
 
 
 @click.argument("img_path", type=Path)
