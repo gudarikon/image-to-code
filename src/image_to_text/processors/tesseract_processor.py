@@ -29,4 +29,4 @@ class TesseractProcessor(OCRProcessor, metaclass=ABCSingleton):
             :return: Parsed text
         """
         result = pytesseract.image_to_string(image, config="--psm 4")
-        return result, []
+        return result
