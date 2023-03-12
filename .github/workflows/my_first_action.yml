@@ -1,7 +1,10 @@
 name: first-github-action
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
 jobs:
   write-to-console:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Hello world!'
+      - run: echo 'It merged!'
