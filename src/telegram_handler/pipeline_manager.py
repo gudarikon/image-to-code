@@ -20,7 +20,8 @@ def img_to_code(image: Image,
         processor_config = {"model_bin_path": Path(__file__).parent.parent.parent.resolve() / "resources" / "model"}
     raw_text = img_to_text(image, ocr_processor, ocr_config, True)
 
-    parsed_text = text_to_code(raw_text, text_to_code_processor, processor_config)
+    input_text = "\n".join([line.strip() for line in raw_text.split("\n")])
+    parsed_text = text_to_code(input_text, text_to_code_processor, processor_config)
     spaces = [re.findall(r'^\s*', line)[0] for line in raw_text.split("\n")]
 
     parsed_text_with_spaces = []
