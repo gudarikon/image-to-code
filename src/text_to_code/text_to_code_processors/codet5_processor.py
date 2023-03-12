@@ -1,8 +1,8 @@
-from transformers import T5Config, RobertaTokenizer, T5ForConditionalGeneration
+from transformers import RobertaTokenizer, T5Config, T5ForConditionalGeneration
 
-from .text_to_code_processor import TextToCodeProcessor
-from src.text_to_code.data_processors import CodeT5DataProcessor
 from src import ABCSingleton
+from src.text_to_code.data_processors import CodeT5DataProcessor
+from .text_to_code_processor import TextToCodeProcessor
 
 
 class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
@@ -19,16 +19,16 @@ class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
         self._model = T5ForConditionalGeneration.from_pretrained(kwargs["model_bin_path"], config=config)
         self._processor = CodeT5DataProcessor()
 
-    def predict(self, text: str, max_length: str = -1) -> str:
+    def predict(self, text: str, extra_length: int = 5) -> str:
         """
         Predict fixed code from text
         :param text: input text
-        :param max_length: max tokens in output (-1 to not specify)
+        :param extra_length: how many extra tokens to generate
+        (5 found by researches and is a 0.975 quantile)
         :return: fixed code
         """
         text = self._processor.process(text)
         input_ids = self._tokenizer(text, return_tensors="pt").input_ids
-        if max_length == -1:
-            max_length = len(input_ids[0])
+        max_length = len(input_ids[0]) + extra_length
         generated_ids = self._model.generate(input_ids, max_length=max_length)
         return self._tokenizer.decode(generated_ids[0], skip_special_tokens=True)
