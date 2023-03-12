@@ -1,0 +1,25 @@
+name: deploy-action
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Merged to master/main successfully!'
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 'fill-me-later'
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+
+      - run: ssh -t masstermax@${{ secrets.SSH_HOST }} "cd ~/projects/image-to-code &&
+          git checkout master &&
+          git pull &&
+          bash run.sh"
