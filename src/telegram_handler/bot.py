@@ -1,6 +1,7 @@
 import logging
 import os
 from pathlib import Path
+from uuid import uuid4
 
 from aiogram import Bot, Dispatcher, executor, types
 from PIL import Image
@@ -25,9 +26,9 @@ async def handle_photo(message):
     photo_size: types.PhotoSize = message.photo[-1]
     file_info = await bot.get_file(photo_size.file_id)
     file_ext = file_info.file_path.split(".")[-1]
-
-    # todo maybe add uuid to name?
-    file_name = f"{photo_size.file_unique_id}.{file_ext}"
+    # todo which name prefer?
+    # file_name = f"{photo_size.file_unique_id}.{file_ext}"
+    file_name = f"{uuid4()}.{file_ext}"
     await message.photo[-1].download(file_name)
     logging.info(f"downloaded: {file_name}")
 
