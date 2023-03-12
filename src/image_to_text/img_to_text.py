@@ -9,7 +9,7 @@ from src.image_to_text.processors.ocr_processor import OCRProcessor
 from src.image_to_text.utils import prepare_image
 
 
-def _get_processor(ocr_processor: str) -> type:
+def get_processor(ocr_processor: str) -> type:
     """
     Method to get given by string OCRProcessor class
 
@@ -31,7 +31,7 @@ def img_to_text(image: Image, ocr_processor: str, ocr_config: dict, add_spaces: 
     :param add_spaces: Flag to set using spaces in parsed text
     :return: Parsed text
     """
-    processor = _get_processor(ocr_processor)
+    processor = get_processor(ocr_processor)
     processor_obj: OCRProcessor = processor(**ocr_config)
     image = prepare_image(image)
     text = processor_obj.process_image(image, add_spaces)
