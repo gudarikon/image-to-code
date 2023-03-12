@@ -11,3 +11,4 @@ pytesseract~=0.3.10
 python-dotenv
 transformers>=4.15.0
 torch
+aiogram
