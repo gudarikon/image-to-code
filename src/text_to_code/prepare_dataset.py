@@ -21,9 +21,9 @@ def prepare_dataset(image_folder: Path, code_folder: Path, ocr_preds: Path, stor
     for file in tqdm(os.listdir(image_folder)):
         pure_name = file.split(".")[0]
         with open(code_folder / (pure_name + ".json")) as fr:
-            codes.append(preprocess_text(json.load(fr)["code"]))
+            codes.append(preprocess_text(json.load(fr)["code"], False))
         with open(ocr_preds / (pure_name + ".txt"), "r", encoding="utf-16") as fr:
-            preds.append(preprocess_text(fr.read()))
+            preds.append(preprocess_text(fr.read(), False))
         image_paths.append(str(image_folder / file))
 
     df = pd.DataFrame({"image_path": image_paths,
