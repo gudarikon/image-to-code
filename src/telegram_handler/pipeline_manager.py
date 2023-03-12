@@ -18,7 +18,7 @@ def img_to_code(image: Image,
         ocr_config = {"lang": "en"}
     if processor_config is None and text_to_code_processor == "CodeT5Processor":
         processor_config = {"model_bin_path": Path(__file__).parent.parent.parent.resolve() / "resources" / "model"}
-    raw_text = img_to_text(image, ocr_processor, ocr_config)
+    raw_text = img_to_text(image, ocr_processor, ocr_config, True)
 
     parsed_text = text_to_code(raw_text, text_to_code_processor, processor_config)
     spaces = [re.findall(r'^\s*', line)[0] for line in raw_text.split("\n")]
@@ -28,7 +28,7 @@ def img_to_code(image: Image,
         new_line = line if i >= len(spaces) else spaces[i] + line
         parsed_text_with_spaces.append(new_line)
     parsed_text = "\n".join(parsed_text_with_spaces)
-    
+
     if return_ocr_result:
         return raw_text, parsed_text
     else:
