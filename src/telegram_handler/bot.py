@@ -6,7 +6,7 @@ from uuid import uuid4
 from aiogram import Bot, Dispatcher, executor, types
 from PIL import Image
 
-from pipeline_manager import img_to_code, img_to_text
+from pipeline_manager import img_to_code
 
 BOT_API_TOKEN = os.getenv("BOT_API_TOKEN")
 
@@ -39,9 +39,8 @@ async def handle_photo(message):
     logging.info(image)
 
     ocr_text, code = img_to_code(image, return_ocr_result=True)
-    ocr_with_spaces = img_to_text(image, "PaddleProcessor", {"lang": "en"}, add_spaces=True)
 
-    text = "\n\n".join(["ocr with spaces:", f"`{ocr_with_spaces}`", "ocr text:", f"`{ocr_text}`", "code:", f"`{code}`"])
+    text = "\n\n".join(["ocr text:", f"`{ocr_text}`", "code:", f"`{code}`"])
     logging.info(text)
     await message.answer(text=text, parse_mode="Markdown", reply=True)
 
