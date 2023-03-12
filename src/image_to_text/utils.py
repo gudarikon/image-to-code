@@ -4,6 +4,7 @@ from PIL import Image
 def prepare_image(image: Image) -> Image:
     """
     Turns image to Black-White mode and adds background frame
+
     :param image: PIL Image object
     :return: prepared image
     """
