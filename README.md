@@ -77,3 +77,7 @@ cd image-to-code
                 src/telegram_handler/pipeline_manager.py \
                 /mnt/c/Users/maxma/Desktop/1.png
 ```
+
+
+# Deploy
+Deploying via GitHub action .github/workflows/deploy_action.yml and run.sh
