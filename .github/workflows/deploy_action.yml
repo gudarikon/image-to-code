@@ -30,9 +30,6 @@ jobs:
       - name: Change SSH Key chmod
         run: chmod 400 ~/.ssh/id_rsa
 
-      - name: Generate public key from private
-        run: ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
-
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
