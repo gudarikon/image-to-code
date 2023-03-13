@@ -18,7 +18,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=["start"])
 async def show_hello(message: types.Message):
-    await message.answer(text="hello!")
+    await message.answer(text=f"Hello, {message.from_user.username}!")
 
 
 @dp.message_handler(content_types=["photo"])
