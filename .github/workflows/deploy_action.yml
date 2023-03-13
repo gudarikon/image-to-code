@@ -10,6 +10,9 @@ jobs:
     steps:
       - run: echo 'Merged to master/main successfully!'
 
+      - name: LS
+        run: ls -a
+
       - name: Adding SSH Key
         run: echo 123  >> ~/.ssh/id_rsa
 
