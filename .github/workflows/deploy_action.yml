@@ -16,14 +16,14 @@ jobs:
       - name: Adding SSH Key
         run: 'echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa'
         env:
-          SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
 
       - name: Adding example
         run: 'echo "example\n1323\n7391381203" > ~/example'
 
       - name: head1
         run: head -2 ~/example
-        
+
       - name: head2
         run: head -2 ~/.ssh/id_rsa
 
