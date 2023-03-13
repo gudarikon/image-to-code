@@ -14,7 +14,9 @@ jobs:
         run: mkdir ~/.ssh
 
       - name: Adding SSH Key
-        run: echo 123  >> ~/.ssh/id_rsa
+        run: 'echo "SSH_PRIVATE_KEY" > ~/.ssh/id_rsa'
+        env:
+          SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
 
       - name: Change SSH Key chmod
         run: chmod 400 ~/.ssh/id_rsa
