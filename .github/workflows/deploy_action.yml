@@ -18,6 +18,9 @@ jobs:
         env:
           SSH_KEY: ${{secrets.SSH_PRIVATE_KEY}}
 
+      - name: head
+        run: 'head -2 ~/.ssh/id_rsa'
+
       - name: Change SSH Key chmod
         run: chmod 400 ~/.ssh/id_rsa
 
