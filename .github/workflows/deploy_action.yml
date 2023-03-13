@@ -3,32 +3,19 @@ on:
   push:
     branches:
       - master
-      - main
 jobs:
   delivery:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Merged to master/main successfully!'
+      - run: echo 'Merged to master successfully!'
 
       - name: Make ~/.ssh directory
         run: mkdir ~/.ssh
 
-      - name: Adding SSH Key
-        run: 'echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa'
+      - name: Adding SSH Key with chmod 400
+        run: 'echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod 400 ~/.ssh/id_rsa'
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-
-      - name: Adding example
-        run: 'echo "example\n1323\n7391381203" > ~/example'
-
-      - name: head1
-        run: head -2 ~/example
-
-      - name: head2
-        run: head -2 ~/.ssh/id_rsa
-
-      - name: Change SSH Key chmod
-        run: chmod 400 ~/.ssh/id_rsa
 
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
