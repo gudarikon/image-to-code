@@ -16,6 +16,9 @@ jobs:
       - name: Adding SSH Key
         run: echo 123  >> ~/.ssh/id_rsa
 
+      - name: Change SSH Key chmod
+        run: chmod 400 ~/.ssh/id_rsa
+
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
