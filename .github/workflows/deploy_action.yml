@@ -14,7 +14,7 @@ jobs:
         run: mkdir ~/.ssh
 
       - name: Adding SSH Key
-        run: echo ${{ secrets.SSH_PRIVATE_KEY }}  >> ~/.ssh/id_rsa
+        run: echo 123  >> ~/.ssh/id_rsa
 
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
