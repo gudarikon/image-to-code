@@ -93,8 +93,7 @@ def get_function_lengths(file_path) -> List[tuple]:
     max_symbols = 0
     prev_line = ""
     current_func = []
-    for i in range(0, len(lines)):
-        line = lines[i]
+    for line in lines:
         current_func.append(line)
         max_symbols = max(max_symbols, len(line))
         if prev_line == "    }\n" and line == "\n":

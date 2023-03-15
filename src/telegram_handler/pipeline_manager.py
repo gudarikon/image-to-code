@@ -17,7 +17,9 @@ def img_to_code(image: Image,
     if ocr_config is None and ocr_processor == "PaddleProcessor":
         ocr_config = {"lang": "en"}
     if processor_config is None and text_to_code_processor == "CodeT5Processor":
-        processor_config = {"model_bin_path": Path(__file__).parent.parent.parent.resolve() / "resources" / "model"}
+        processor_config = {
+            "model_bin_path": Path(__file__).parent.parent.parent.resolve() / "resources" / "model"
+        }
     raw_text = img_to_text(image, ocr_processor, ocr_config, True)
 
     input_text = "\n".join([line.strip() for line in raw_text.split("\n")])
@@ -32,8 +34,7 @@ def img_to_code(image: Image,
 
     if return_ocr_result:
         return raw_text, parsed_text
-    else:
-        return parsed_text
+    return parsed_text
 
 
 @click.argument("img_path", type=Path)

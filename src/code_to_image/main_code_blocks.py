@@ -30,7 +30,7 @@ config = ConfigBuilder().get_config()
 
 
 def open_file(path: str):
-    if platform.system == "Darwin":
+    if platform.system() == "Darwin":
         pyautogui.hotkey("cmd", "shift", "o")
     else:
         pyautogui.hotkey("ctrl", "shift", "n")

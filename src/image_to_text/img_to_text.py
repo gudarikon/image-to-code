@@ -4,7 +4,7 @@ from pathlib import Path
 import click
 from PIL import Image
 
-import src.image_to_text.processors as processors
+from src.image_to_text import processors
 from src.image_to_text.processors.ocr_processor import OCRProcessor
 from src.image_to_text.utils import prepare_image
 

@@ -1,3 +1,5 @@
+from typing import List, Union
+
 from transformers import RobertaTokenizer, T5Config, T5ForConditionalGeneration
 
 from src import ABCSingleton
@@ -19,12 +21,13 @@ class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
         self._model = T5ForConditionalGeneration.from_pretrained(kwargs["model_bin_path"], config=config)
         self._processor = CodeT5DataProcessor()
 
-    def predict(self, text: str, extra_length: int = 5) -> str:
+    def predict(self, text: Union[str, List[str]], extra_length=5, **kwargs) -> str:
         """
         Predict fixed code from text
         :param text: input text
         :param extra_length: how many extra tokens to generate
-        (5 found by researches and is a 0.975 quantile)
+            (5 found by researches and is a 0.975 quantile)
+
         :return: fixed code
         """
         text = self._processor.process(text)

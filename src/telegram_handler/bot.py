@@ -6,7 +6,7 @@ from uuid import uuid4
 from aiogram import Bot, Dispatcher, executor, types
 from PIL import Image
 
-from pipeline_manager import img_to_code
+from src.telegram_handler import img_to_code
 
 BOT_API_TOKEN = os.getenv("BOT_API_TOKEN")
 

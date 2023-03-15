@@ -7,17 +7,17 @@ import pytest
 
 
 @pytest.fixture(scope="module")
-def project_path():
+def project_path() -> Path:
     return Path(__file__).parent.parent
 
 
 @pytest.fixture(scope="module")
-def env_path(project_path):
+def env_path(project_path) -> Path:
     return project_path / ".env"
 
 
 @pytest.fixture(scope="module")
-def dataset_parser_config_path():
+def dataset_parser_config_path() -> Path:
     """
     Path to config for dataset_parser
 
@@ -27,12 +27,34 @@ def dataset_parser_config_path():
 
 
 @pytest.fixture(scope="module")
-def image_path():
+def image_path() -> Path:
     """
     Path to the source image
     :return: Path
     """
     return Path(__file__).parent / "resources" / "image.png"
+
+
+@pytest.fixture(scope="module")
+def ocr_example_text_path() -> Path:
+    """
+    Path to the OCR example corrupted text
+    :return: Path
+    """
+    return Path(__file__).parent / "resources" / "ocr_text_example.txt"
+
+
+@pytest.fixture(scope="module")
+def ocr_example_text(ocr_example_text_path) -> str:
+    """
+    Gets OCR example corrupted text via path
+
+    :param ocr_example_text_path: Path to text
+    :return: text
+    """
+    with open(ocr_example_text_path, "r") as fr:
+        text = fr.read()
+    return text
 
 
 @pytest.fixture(scope="module")
@@ -47,7 +69,7 @@ def image(image_path) -> Image:
 
 
 @pytest.fixture(scope="module")
-def paddleocr_config_path():
+def paddleocr_config_path() -> Path:
     """
     Path to PaddleProcessor config
     :return: Path
@@ -56,7 +78,7 @@ def paddleocr_config_path():
 
 
 @pytest.fixture(scope="module")
-def paddleocr_config(paddleocr_config_path):
+def paddleocr_config(paddleocr_config_path) -> dict:
     """
     PaddleProcessor config by path
     :return: dict with PaddleProcessor configs
@@ -67,7 +89,7 @@ def paddleocr_config(paddleocr_config_path):
 
 
 @pytest.fixture(scope="module")
-def tesseract_config_path():
+def tesseract_config_path() -> Path:
     """
     Path to TesseractProcessor config
     :return: Path
@@ -76,7 +98,7 @@ def tesseract_config_path():
 
 
 @pytest.fixture(scope="module")
-def tesseract_config(tesseract_config_path, env_path):
+def tesseract_config(tesseract_config_path, env_path) -> dict:
     """
     TesseractProcessor config by path
     :return: dict with TesseractProcessor configs
@@ -88,16 +110,16 @@ def tesseract_config(tesseract_config_path, env_path):
 
 
 @pytest.fixture(scope="module")
-def code_t5_config_path():
+def code_t5_config_path() -> Path:
     """
     Path to CodeT5Processor config
     :return: Path
     """
-    return Path(__file__).parent / "resources" / "codet5_processor.json"
+    return Path(__file__).parent / "resources" / "code_t5_config.json"
 
 
 @pytest.fixture(scope="module")
-def code_t5_config(code_t5_config_path):
+def code_t5_config(code_t5_config_path) -> dict:
     """
     CodeT5Processor config by path
     :return: dict with CodeT5Processor configs

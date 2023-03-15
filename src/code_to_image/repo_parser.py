@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def parse_repo(repo_root: str, suffixes):
-    res = dict()
+    res = {}
     path = os.walk(repo_root)
     for root, _, files in path:
         root = Path(root)
@@ -31,17 +31,14 @@ def _count_generator(reader):
 
 
 def get_language(file_path: str):
-    if file_path.endswith(".java"):
-        return "java"
-    elif file_path.endswith(".py"):
-        return "python"
-    elif file_path.endswith(".kt"):
-        return "kotlin"
-    elif file_path.endswith(".c"):
-        return "c"
-    elif file_path.endswith(".cpp"):
-        return "c++"
-    elif file_path.endswith(".go"):
-        return "go"
-    elif file_path.endswith(".rs"):
-        return "rust"
+    ending = file_path.split(".")[-1]
+    extensions = {
+        "java": "java",
+        "py": "python",
+        "kt": "kotlin",
+        "c": "c",
+        "cpp": "c++",
+        "go": "go",
+        "rs": "rust"
+    }
+    return extensions.get(ending, "None")
