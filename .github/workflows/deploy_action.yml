@@ -23,4 +23,4 @@ jobs:
       - run: ssh -t masstermax@${{ secrets.SSH_HOST }} "cd ~/projects/image-to-code &&
           git checkout master &&
           git pull &&
-          env BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} bash run.sh"
+          env BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} bash bash_scripts/run.sh"
