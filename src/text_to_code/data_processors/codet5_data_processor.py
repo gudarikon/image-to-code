@@ -1,3 +1,4 @@
+from src.text_to_code.utils import preprocess_text
 from .data_processor import DataProcessor
 
 
@@ -7,6 +8,4 @@ class CodeT5DataProcessor(DataProcessor):
         pass
 
     def process(self, text, **kwargs):
-        if isinstance(text, list):
-            text = "\n".join([s.lstrip() for s in text if not s.isspace() and len(s) > 0])
-        return text
+        return preprocess_text(text, strip_lines=True)

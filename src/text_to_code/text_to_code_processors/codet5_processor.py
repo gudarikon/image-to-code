@@ -1,3 +1,4 @@
+import re
 from typing import List, Union
 
 from transformers import RobertaTokenizer, T5Config, T5ForConditionalGeneration
@@ -30,8 +31,17 @@ class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
 
         :return: fixed code
         """
+        spaces = [re.findall(r'^\s*', line)[0] for line in text.split("\n")]
+
         text = self._processor.process(text)
         input_ids = self._tokenizer(text, return_tensors="pt").input_ids
         max_length = len(input_ids[0]) + extra_length
         generated_ids = self._model.generate(input_ids, max_length=max_length)
-        return self._tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+
+        text = self._tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+
+        parsed_text_with_spaces = []
+        for i, line in enumerate(text.split("\n")):
+            new_line = line if i >= len(spaces) else spaces[i] + line
+            parsed_text_with_spaces.append(new_line)
+        return "\n".join(parsed_text_with_spaces)

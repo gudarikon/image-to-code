@@ -9,8 +9,9 @@ from typing import List, Tuple
 
 import pyautogui
 
-from src.code_to_image.repo_parser import get_language, parse_repo
 from src.code_to_image.config_builder import ConfigBuilder
+from src.code_to_image.repo_parser import get_language, parse_repo
+
 
 DIGIT_INC = 9.5
 GUTTER_BASE = 35
@@ -118,6 +119,7 @@ def assert_empty_folders():
         raise AssertionError("use empty folder for code jsons")
     if len(os.listdir(config.screenshot_folder)) != 0:
         raise AssertionError("use empty folder for screenshots")
+
 
 def create_random_screen_stops(total_lines: int):
     """

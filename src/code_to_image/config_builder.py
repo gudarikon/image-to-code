@@ -28,7 +28,7 @@ def create_config(path: str):
     if not os.path.isfile(path):
         return None
     res = Config(**get_file(path))
-    if hasattr(res,"visible_lines"):
+    if hasattr(res, "visible_lines"):
         res.visited_files = set(res.visited_files)
     return res
 
