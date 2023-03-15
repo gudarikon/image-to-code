@@ -1,6 +1,7 @@
 .env
 /resources/data/
 /resources/model/*
+.coverage*
 
 /venv/
 # Default ignored files
