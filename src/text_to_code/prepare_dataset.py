@@ -6,7 +6,7 @@ import click
 import pandas as pd
 from tqdm import tqdm
 
-from utils import preprocess_text
+from src.text_to_code.utils import preprocess_text
 
 
 @click.argument("image_folder", type=Path)

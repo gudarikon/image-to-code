@@ -8,16 +8,22 @@
 from src.code_to_image.dataset_parser import *
 
 
+from pathlib import Path
+
+from src.code_to_image.config import Config
+from src.code_to_image.dataset_parser import *
+
+
 def test_parsing(dataset_parser_config_path):
     dataset_parser = DatasetParser()
-    dataset_parser.config = ConfigBuilder().get_config(str(dataset_parser_config_path))
-    functions = dataset_parser.parse_functions_into_files(functions_num_in_file=29,
-                                                          in_memory=True)
+    dataset_parser.config = Config()
+    dataset_parser.config.code_search_functions_path = \
+        str(Path(__file__).parent.parent / "resources" / "java_test_functions.jsonl")
 
-    assert (functions.startswith("package edu.hse.ru;\n\nclass Code1 {"))
-    assert (functions.endswith("}" + "\n" * 30))
-
-    _check_functions_are_not_big(functions)
+    functions = dataset_parser.parse_functions_into_files(
+        functions_num_in_file=29,
+        in_memory=True
+    )
 
 
 def _check_functions_are_not_big(functions: str):

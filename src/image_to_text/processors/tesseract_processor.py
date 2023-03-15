@@ -1,8 +1,8 @@
 from PIL import Image
 import pytesseract
 
-from .ocr_processor import OCRProcessor
 from src import ABCSingleton
+from .ocr_processor import OCRProcessor
 
 
 class TesseractProcessor(OCRProcessor, metaclass=ABCSingleton):

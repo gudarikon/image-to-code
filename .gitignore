@@ -1,5 +1,6 @@
 .env
 /resources/data/
+/resources/model/*
 
 /venv/
 # Default ignored files

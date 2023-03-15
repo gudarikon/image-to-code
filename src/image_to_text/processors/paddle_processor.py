@@ -4,8 +4,8 @@ import numpy as np
 from paddleocr import PaddleOCR
 from PIL import Image
 
-from .ocr_processor import OCRProcessor
 from src import ABCSingleton
+from .ocr_processor import OCRProcessor
 
 
 class PaddleProcessor(OCRProcessor, metaclass=ABCSingleton):

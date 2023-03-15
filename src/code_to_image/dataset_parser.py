@@ -15,10 +15,12 @@ class DatasetParser:
     def create_file(self, in_memory: bool = False) -> TextIO:
 
         res = StringIO() if in_memory else open(
-            self.config.repo_path + "\\Code{num}.java".format(num=self.current_file_num),
-            "w", encoding="ascii")
+            self.config.repo_path + f"\\Code{self.current_file_num}.java",
+            "w",
+            encoding="ascii"
+        )
         res.write("package edu.hse.ru;\n\n")
-        res.write("class Code{num} ".format(num=self.current_file_num))
+        res.write(f"class Code{self.current_file_num} ")
         res.write("{\n")
 
         self.current_file_num += 1

@@ -5,11 +5,12 @@ from typing import List, Union
 import click
 
 from src.text_to_code.text_to_code_processors.text_to_code_processor import TextToCodeProcessor
-import src.text_to_code.text_to_code_processors as text_to_code_processors
+from src.text_to_code import text_to_code_processors
 
 
 def get_processor(text_to_code_processor: str):
-    assert text_to_code_processor in text_to_code_processors.__all__, f"No given processor found. Try one of {text_to_code_processors.__all__}"
+    assert text_to_code_processor in text_to_code_processors.__all__, \
+        f"No given processor found. Try one of {text_to_code_processors.__all__}"
     processor = getattr(text_to_code_processors, text_to_code_processor)
     return processor
 

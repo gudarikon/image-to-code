@@ -1,7 +1,7 @@
 from typing import List, Union
 
-from .text_to_code_processor import TextToCodeProcessor
 from src import ABCSingleton
+from .text_to_code_processor import TextToCodeProcessor
 
 
 class DummyProcessor(TextToCodeProcessor, metaclass=ABCSingleton):
@@ -9,7 +9,6 @@ class DummyProcessor(TextToCodeProcessor, metaclass=ABCSingleton):
         """
         Processor that does nothing
         """
-        pass
 
     def predict(self, text: Union[str, List[str]], **kwargs) -> str:
         """
