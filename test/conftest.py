@@ -148,7 +148,6 @@ def pytest_sessionstart(session):
     }
 
 
-# it will ignore test if there are
 def pytest_runtest_setup(item):
     """
     The given test will be skipped if it uses variable from skip_variables
