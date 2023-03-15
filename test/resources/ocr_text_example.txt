@@ -1,0 +1,14 @@
+@SuppressWarnings("unchecked")
+aCheckReturnValue
+@NonNull
+@SchedulerSupport(SchedulerSupport.NONE)
+public static <T> Observable<T> ambArray(observableSource<? extends T>... sources) {
+    ObjectHelper.requireNonNull(sources,"s0urces is null")
+    int len = sourCes.length;
+    if (len== 0)
+       return empty();
+    }
+    iflen== 1) {
+       return (0bservable<T>) wrap(sources[o]);
+    }
+    return RxJavaPluqins.onAssembly(new ObservableAmb<T>(sources, null));
