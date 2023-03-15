@@ -4,7 +4,7 @@ from src.telegram_handler.pipeline_manager import img_to_code
 
 
 @pytest.mark.parametrize(
-    ("src_image", "ocr_processor", "ocr_config", "text_to_code_processor", "processor_config", "return_ocr_result"),
+    ("src_image", "ocr_name", "ocr_config", "text_to_code_processor", "processor_config", "return_ocr_result"),
     [
         ("image", "PaddleProcessor", None, "CodeT5Processor", None, True),
         ("image", "TesseractProcessor", "tesseract_config", "DummyProcessor", "code_t5_config", False)
@@ -12,7 +12,7 @@ from src.telegram_handler.pipeline_manager import img_to_code
 )
 def test_img_to_code(
         src_image,
-        ocr_processor,
+        ocr_name,
         ocr_config,
         text_to_code_processor,
         processor_config,
@@ -27,7 +27,7 @@ def test_img_to_code(
 
     text = img_to_code(
         src_image,
-        ocr_processor,
+        ocr_name,
         ocr_config,
         text_to_code_processor,
         processor_config,

@@ -105,7 +105,7 @@ def tesseract_config(tesseract_config_path, env_path) -> dict:
     """
     with open(tesseract_config_path, "r") as fr:
         config = json.load(fr)
-        config["path_to_tesseract"] = str(Path(dotenv_values(env_path)["PATH_TO_TESSERACT"]))
+        config["path_to_tesseract"] = str(Path(dotenv_values(env_path).get("PATH_TO_TESSERACT", "")))
     return config
 
 
@@ -128,3 +128,36 @@ def code_t5_config(code_t5_config_path) -> dict:
         config = json.load(fr)
         config["model_bin_path"] = Path(__file__).parent.parent / Path(config["model_bin_path"])
     return config
+
+
+# Here i add some settings to ignore Tesseract if no .env PATH_TO_TESSERACT provided
+
+def pytest_sessionstart(session):
+    """
+    Set up Variables which should be skipped in case of
+    special value and certain condition
+
+    :param session: Pytest session data object
+    :return:
+    """
+    session.skip_variables = {
+        "ocr_name": (
+            ["TesseractProcessor"],
+            dotenv_values(Path(__file__).parent.parent / ".env").get("PATH_TO_TESSERACT", "") == ""
+        )
+    }
+
+
+# it will ignore test if there are
+def pytest_runtest_setup(item):
+    """
+    The given test will be skipped if it uses variable from skip_variables
+    and the skip_variable condition is True
+
+    :param item: Test item object
+    :return:
+    """
+    for key in item.session.skip_variables:
+        if item.callspec.params.get(key, "") in item.session.skip_variables[key][0] \
+                and item.session.skip_variables[key][1]:
+            pytest.skip(item.name)
