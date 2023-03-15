@@ -156,6 +156,8 @@ def pytest_runtest_setup(item):
     :param item: Test item object
     :return:
     """
+    if not hasattr(item, "callspec"):
+        return
     for key in item.session.skip_variables:
         if item.callspec.params.get(key, "") in item.session.skip_variables[key][0] \
                 and item.session.skip_variables[key][1]:

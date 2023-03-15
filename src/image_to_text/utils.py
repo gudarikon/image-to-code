@@ -40,7 +40,7 @@ def resize_image(image: Image, target_len_size: float = 2048) -> Image:
     factor = target_len_size / length_x
     size = int(factor * length_x), int(factor * width_y)
 
-    return image.resize(size, Image.ANTIALIAS)
+    return image.resize(size, Image.Resampling.LANCZOS)
 
 
 def preprocess_image(image: Image) -> Image:
