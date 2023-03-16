@@ -21,8 +21,14 @@ jobs:
       - name: "Show current working directory"
         run: pwd
 
+      - name: "Create .env file"
+        run: echo "DISPLAY=:0" > .env
+
       - name: "Show current working directory's content"
         run: ls -A
+
+      - name: "Export Environment Variables form .env"
+        run: bash bash_scripts/add_envs.sh
 
       - name: "Download CodeT5Model"
         run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj" -O codet5_model.bin && rm -rf /tmp/cookies.txt
