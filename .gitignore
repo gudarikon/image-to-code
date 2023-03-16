@@ -1,6 +1,5 @@
 .env
 /resources/data/
-/resources/model/*
 /coverage.xml
 
 /venv/
