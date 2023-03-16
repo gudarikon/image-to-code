@@ -25,7 +25,7 @@ jobs:
         run: ls -A
 
       - name: "Download CodeT5Model"
-        run: wget --load-cookies /home/runner/work/image-to-code/image-to-code/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj" -O /resources/model/codet5_model.bin && rm -f /home/runner/work/image-to-code/image-to-code/cookies.txt
+        run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj" -O codet5_model.bin && rm -rf /tmp/cookies.txt
 
       - name: "Install Dependencies"
         run: |
