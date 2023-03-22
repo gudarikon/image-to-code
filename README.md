@@ -75,7 +75,7 @@ cd image-to-code
 ```shell
 /image-to-code$ PYTHONPATH=./ python3 \
                 src/telegram_handler/pipeline_manager.py \
-                /mnt/c/Users/maxma/Desktop/1.png
+                /path/to/image.png
 ```
 
 
