@@ -22,7 +22,7 @@ jobs:
         run: pwd
 
       - name: "Create .env file"
-        run: echo "DISPLAY=:0" > .env
+        run: echo "" > .env
 
       - name: "Show current working directory's content"
         run: ls -A
@@ -46,7 +46,7 @@ jobs:
           pylint --jobs 1 --rcfile=setup.cfg src
 
       - name: "Run Tests with Coverage"
-        run: DISPLAY=":0" pytest
+        run: pytest
 
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v3
