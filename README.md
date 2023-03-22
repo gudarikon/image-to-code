@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/gudarikon/image-to-code/branch/master/graph/badge.svg?token=JP2U7KJIGV)](https://codecov.io/gh/gudarikon/image-to-code)
+
 # image-to-code
 This repository contains code image dataset generator and NLP model for recognizing code from image
 
