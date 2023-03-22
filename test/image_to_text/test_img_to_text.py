@@ -30,7 +30,7 @@ def test_get_processor_fail(ocr_name):
 
 
 @pytest.mark.parametrize(
-    ("image_obj", "ocr_processor", "ocr_config", "add_spaces"),
+    ("image_obj", "ocr_name", "ocr_config", "add_spaces"),
     [
         ("image", "PaddleProcessor", "paddleocr_config", False),
         ("image", "PaddleProcessor", "paddleocr_config", True),
@@ -38,11 +38,11 @@ def test_get_processor_fail(ocr_name):
         ("image", "TesseractProcessor", "tesseract_config", True),
     ]
 )
-def test_img_to_text(image_obj, ocr_processor, ocr_config, add_spaces, request):
+def test_img_to_text(image_obj, ocr_name, ocr_config, add_spaces, request):
     image = request.getfixturevalue(image_obj)
     ocr_config = request.getfixturevalue(ocr_config)
 
-    text = img_to_text(image, ocr_processor, ocr_config, add_spaces)
+    text = img_to_text(image, ocr_name, ocr_config, add_spaces)
 
     assert type(text) == str
     assert len(text) > 0

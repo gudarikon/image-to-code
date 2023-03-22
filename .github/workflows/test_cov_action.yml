@@ -1,0 +1,54 @@
+name: test-cov-action
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Repo"
+        uses: actions/checkout@v3
+
+      - name: "Set up Python 3.9"
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: "Show current working directory"
+        run: pwd
+
+      - name: "Create .env file"
+        run: echo "" > .env
+
+      - name: "Show current working directory's content"
+        run: ls -A
+
+      - name: "Export Environment Variables form .env"
+        run: bash bash_scripts/add_envs.sh
+
+      - name: "Download CodeT5Model"
+        run: wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19Sb_aMCi-XIBrjqlDiGpYOwG7MmCpWnj" -O codet5_model.bin && rm -rf /tmp/cookies.txt
+
+      - name: "Move CodeT5Model to resources/model"
+        run: mv codet5_model.bin resources/model/
+
+      - name: "Install Dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-test.txt
+
+      - name: "Lint"
+        run: |
+          pylint --jobs 1 --rcfile=setup.cfg src
+
+      - name: "Run Tests with Coverage"
+        run: pytest
+
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml

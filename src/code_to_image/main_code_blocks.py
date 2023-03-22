@@ -7,8 +7,6 @@ import random
 from time import sleep
 from typing import List, Tuple
 
-import pyautogui
-
 from src.code_to_image.config_builder import ConfigBuilder
 from src.code_to_image.repo_parser import get_language, parse_repo
 
@@ -31,6 +29,8 @@ config = ConfigBuilder().get_config()
 
 
 def open_file(path: str):
+    import pyautogui
+    
     if platform.system() == "Darwin":
         pyautogui.hotkey("cmd", "shift", "o")
     else:
