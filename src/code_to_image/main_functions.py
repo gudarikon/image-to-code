@@ -3,8 +3,6 @@ from math import log10
 from pathlib import Path
 from typing import List, Tuple
 
-import pyautogui
-
 from src.code_to_image.config_builder import ConfigBuilder
 from src.code_to_image.main_code_blocks import DIGIT_INC, GUTTER_BASE, LEFT_BOUND, \
     LINE_HEIGHT, \
@@ -18,6 +16,8 @@ config = ConfigBuilder().get_config()
 
 
 def save_screenshots(lines_num: int, max_symbols: int):
+    import pyautogui
+    
     pyautogui.screenshot(
         Path(config.screenshot_code_folder) / (str(config.id) + ".png"),
         region=calculate_bounds_updated(lines_num, max_symbols))
