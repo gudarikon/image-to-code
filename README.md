@@ -9,6 +9,11 @@ This repository contains code image dataset generator and NLP model for recogniz
 Dataset generator is separate tool from the whole pipeline. It was created specifically for this
 project to generate dataset which contains code and its screenshots.
 
+Generated datasets:
+
+1. [Code blocks screenshots](https://www.kaggle.com/datasets/alexeykononov5041/java-code-screenshots)
+2. [Functions screenshots](https://www.kaggle.com/datasets/alexeykononov5041/java-code-search-net-function-screenshots)
+
 ## Requirements
 
 1. an IntelliJ IDE for any language:
