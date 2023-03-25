@@ -2,7 +2,7 @@
 
 # image-to-code
 This repository contains code image dataset generator and NLP model for recognizing code from image
-
+________
 # CodeToImageGenerator
 It works only on specific size monitor.
 
@@ -46,24 +46,37 @@ config is stored in config.json. Here you can specify  data folders and change p
 
 ## Stopping screenshots
 If you want to stop the program, move your mouse during screenshots. The program will exit after current file is finished. All traversed files are saved.
+________
+# ImageToText
 
-# ~~Tesseract~~
-TODO: Fill info about used OCR
+This part contains info about OCR processors used to extract text from the images.
+Available solutions could be found in `src/image_to_text/processors/`
 
-First of all one should install Tesseract on its his/her device.
+New solutions could be easily added using `src/image_to_text/processors/ocr_processor.py` base class. Don't forget to add custom processor to `src/image_to_text/processors.__init__` for convenient access via strings in `src/image_to_text/img_to_text.py `
 
-- Install `Google Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_
+## [Tesseract](https://github.com/tesseract-ocr/tesseract)
+
+First of all one should install Tesseract on the machine.
+
+> Install `Google Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_
   (additional info how to install the engine on Linux, Mac OSX and Windows).
   You must be able to invoke the tesseract command as *tesseract*. If this
   isn't the case, for example because tesseract isn't in your PATH, you will
   have to change the "tesseract_cmd" variable ``pytesseract.pytesseract.tesseract_cmd``.
   Under Debian/Ubuntu you can use the package **tesseract-ocr**.
   For Mac OS users. please install homebrew package **tesseract**.
+
+Once Tesseract is installed the path to tessract.exe file should be added to the local `.env` file. See `.env.example` template
   
-You may use function from scr/ImageToTextGenerator via click command to check functionality
+## [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
+More advanced OCR for image processing. Supports text boxes which allow to add line spacings to the parsed text
 
+## Config
 
+All the processors classes contain `**kwargs` essential for the proper operation. Thus, `.json` formatted config templates are provided in `resources/configs/` 
+
+________
 # Text2Code
 UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 
@@ -80,6 +93,11 @@ cd image-to-code
                 /path/to/image.png
 ```
 
-
+________
 # Deploy
 Deploying via GitHub action .github/workflows/deploy_action.yml and run.sh
+
+________
+# Telegram Bot
+[Image To Code Bot](https://t.me/image_to_code_bot)
+is ready to receive images to return text and code from them
