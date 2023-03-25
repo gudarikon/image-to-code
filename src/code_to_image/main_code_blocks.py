@@ -201,4 +201,6 @@ def traverse_repo():
 
 
 if __name__ == "__main__":
+    pyautogui.hotkey("alt", "tab")
+    pyautogui.sleep(1)
     traverse_repo()
