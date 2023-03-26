@@ -22,13 +22,13 @@ class PhotoSizeMock:
         self.file_id = file_id
         assert "." in file_id
 
-    def download(self):
+    async def download(self):
         # use with . in tests
         assert self.file_id in os.listdir('.')
 
 
 class BotMock:
-    def get_file(self, file_id):
+    async def get_file(self, file_id):
         return FileInfoMock(file_id)
 
 
