@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   delivery:
+    name: deploy action
     runs-on: ubuntu-latest
     steps:
       - run: echo 'Merged to master successfully!'

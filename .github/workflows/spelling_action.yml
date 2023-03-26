@@ -1,0 +1,21 @@
+name: spelling-action
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    name: spelling check action
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout Repo"
+      uses: actions/checkout@v3
+
+    - name: "Spellcheck"
+      uses: rojopolis/spellcheck-github-actions@v0
+      with:
+        source_files: README.md
+        task_name: Markdown
