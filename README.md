@@ -2,10 +2,27 @@
 
 # image-to-code
 
-This repository contains code image dataset generator and NLP model for recognizing code from image
+This is a repository with a source code of image to code generation. The repository contains code image dataset generator, OCR model, NLP model for recognizing code from text and telegram bot script.
+
+![bot_example.png](resources/images/bot_example.png)
+
+**Authors**: [Alexey Kononov](https://github.com/llesha), [Azamatkhan Arifkhanov](https://github.com/Sm1Ling), and [Maxim Gudzikevich](https://github.com/MassterMax)
+<br/><br/>
+
+
+
+# Table of Contents
+
+1. [Code to image dataset generator](#Code-to-image-dataset-generator)
+2. [Image to text generation](#Image-to-text-generation)
+3. [Text to code generation](#Text-to-code-generation)
+4. [Inference](#Inference)
+4. [License](#License)
+<br/><br/>
+
+
 
 # Code to image dataset generator
-
 
 Dataset generator is separate tool from the whole pipeline. It was created specifically for this
 project to generate dataset which contains code and its screenshots.
@@ -17,13 +34,13 @@ Generated datasets:
 
 ## Requirements
 
-1. an IntelliJ IDE for any language:
+1. An IntelliJ IDE for any language:
     * IntelliJ IDEA
     * PyCharm
     * GoLand
     * PhpStorm
-    * etc
-2. 1920x1080 resolution screen
+    * etc.
+2. A 1920x1080 resolution screen
 
 ## How to use
 
@@ -31,7 +48,7 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
 ### Preparation
 
-1. remove breadcrumbs:
+1. Remove breadcrumbs:
    Right lick on the bottom panel showing current classes, methods, etc. (In this screenshot it
    shows `OCRProcessor>process_image()`)
 
@@ -43,15 +60,13 @@ Image generator works in two modes: code blocks screenshots and functions screen
    the* [Editor | General | Breadcrumbs](https://www.jetbrains.com/help/pycharm/settings-editor-breadcrumbs.html)
    *menu.*
 
-2. open terminal window:
+2. Open terminal window - click `Run` in the bottom panel, then move opened window to the bottom:
 
-   Click `Run` in the bottom panel. Move opened window to the bottom.
+   <img src="resources/images/run.png" width="100" />
 
-   ![run.png](resources/images/run.png)
-
-3. remove gutter icons: right click in gutter | Configure Gutter Icons... | Show gutter icons
-4. open filetree and move it to the maximal left position.
-5. set language to English.
+3. Remove gutter icons: right click in gutter | Configure Gutter Icons... | Show gutter icons
+4. Open filetree and move it to the maximal left position.
+5. Set language to English.
 6. Compact View of inspections (top right corner)
 
    ![inspections.png](resources/images/inspections.png)
@@ -83,9 +98,11 @@ visible_lines and visible_symbols to -1 and move it as you did in preparation st
 
 If you want to stop the program, move your mouse during screenshots. The program will exit after
 current file is finished. All traversed files are saved.
+<br/><br/>
 
-________
-# ImageToText
+
+
+# Image to text generation
 
 This part contains info about OCR processors used to extract text from the images.
 Available solutions could be found in `src/image_to_text/processors/`
@@ -114,38 +131,45 @@ More advanced OCR for image processing. Supports text boxes which allow to add l
 ## Config
 
 All the processors classes contain `**kwargs` essential for the proper operation. Thus, `.json` formatted config templates are provided in `resources/configs/` 
+<br/><br/>
 
 
-________
-# Text2Code
 
+# Text to code generation
 
 here I will write something about text to code generation
 
 Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+<br/><br/>
+
+
 
 # Inference
 
-For launching the whole pipeline you can do the following:
+## Local usage
+
+For launching the whole pipeline you can run the following:
 
 ```shell
-cd image-to-code
-```
-
-```shell
+~$ /cd image-to-code
 /image-to-code$ PYTHONPATH=./ python3 \
                 src/telegram_handler/pipeline_manager.py \
                 /path/to/image.png
 ```
 
+## Usage with telegram bot
 
-________
+We are deploying the bot via GitHub action `.github/workflows/deploy_action.yml` and `run.sh` files, you can reuse them in your project
 
-# Deploy
+[Image To Code Bot](https://t.me/image_to_code_bot) is ready to receive images to return OCR text and parsed code from them
 
-Deploying via GitHub action .github/workflows/deploy_action.yml and run.sh
+Currently the bot supports two operations: 
+  - `/start` - the bot will greet you
+  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied CodeT5 tuned refine model)
+ <br/><br/>
 
-________
-# Telegram Bot
-[Image To Code Bot](https://t.me/image_to_code_bot)
-is ready to receive images to return text and code from them
+
+
+ # License
+
+The default license for this repository is Apache 2.0.
