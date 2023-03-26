@@ -70,7 +70,7 @@ Once Tesseract is installed the path to tessract.exe file should be added to the
   
 ## [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
-More advanced OCR for image processing. Supports text boxes which allow to add line spacings to the parsed text
+More advanced OCR for image processing. Supports text boxes which allow to add line spacing to the parsed text
 
 ## Config
 
