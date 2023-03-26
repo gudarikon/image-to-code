@@ -24,3 +24,11 @@ PaddleOCR
 github
 yml
 filetree
+Alexey
+Arifkhanov
+Azamatkhan
+Gudzikevich
+Kononov
+CodeT
+Colab
+MassterMax

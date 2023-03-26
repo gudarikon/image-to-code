@@ -2,12 +2,29 @@
 
 # image-to-code
 
-This repository contains code image dataset generator and NLP model for recognizing code from image
+This is a repository with a source code of image to code generation. The repository contains code image dataset generator, OCR model, NLP model for recognizing code from text and telegram bot script.
+
+![bot_example.png](resources/images/bot_example.png)
+
+**Authors**: [Alexey Kononov](https://github.com/llesha), [Azamatkhan Arifkhanov](https://github.com/Sm1Ling), and [Maxim Gudzikevich](https://github.com/MassterMax)
+<br/><br/>
+
+
+
+# Table of Contents
+
+1. [Code to image dataset generator](#Code-to-image-dataset-generator)
+2. [Image to text generation](#Image-to-text-generation)
+3. [Text to code generation](#Text-to-code-generation)
+4. [Inference](#Inference)
+4. [License](#License)
+<br/><br/>
+
+
 
 # Code to image dataset generator
 
-
-Dataset generator is separate tool from the whole pipeline. It was created specifically for this
+A dataset generator is separate tool from the whole pipeline. It was created specifically for this
 project to generate dataset which contains code and its screenshots.
 
 Generated datasets:
@@ -17,13 +34,13 @@ Generated datasets:
 
 ## Requirements
 
-1. an IntelliJ IDE for any language:
+1. An IntelliJ IDE for any language:
     * IntelliJ IDEA
     * PyCharm
     * GoLand
     * PhpStorm
-    * etc
-2. 1920x1080 resolution screen
+    * etc.
+2. A 1920x1080 resolution screen
 
 ## How to use
 
@@ -31,7 +48,7 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
 ### Preparation
 
-1. remove breadcrumbs:
+1. Remove breadcrumbs:
    Right lick on the bottom panel showing current classes, methods, etc. (In this screenshot it
    shows `OCRProcessor>process_image()`)
 
@@ -41,18 +58,16 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
    *Later breadcrumbs are restored in
    the* [Editor | General | Breadcrumbs](https://www.jetbrains.com/help/pycharm/settings-editor-breadcrumbs.html)
-   *menu.*
+   *menu*
 
-2. open terminal window:
+2. Open terminal window - click `Run` in the bottom panel, then move opened window to the bottom:
 
-   Click `Run` in the bottom panel. Move opened window to the bottom.
+   <img src="resources/images/run.png" width="100" />
 
-   ![run.png](resources/images/run.png)
-
-3. remove gutter icons: right click in gutter | Configure Gutter Icons... | Show gutter icons
-4. open filetree and move it to the maximal left position.
-5. set language to English.
-6. Compact View of inspections (top right corner)
+3. Remove gutter icons: right click in gutter | Configure Gutter Icons... | Show gutter icons
+4. Open filetree and move it to the maximal left position.
+5. Set language to English.
+6. Compact View of inspections (top right corner):
 
    ![inspections.png](resources/images/inspections.png)
 
@@ -61,31 +76,33 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
 ### Using code blocks screenshots
 
-1. open IntelliJ project
-2. set `repo_path` in config.json to project path
-3. run `code_to_image/main_code_blocks.py`
+1. Open IntelliJ project
+2. Set `repo_path` in config.json to project path
+3. Run `code_to_image/main_code_blocks.py`
 
 ### Using functions screenshots
 
-1. create empty IntelliJ project
-2. run `dataset_parser.py`, with `repo_path` in config.json set to empty
+1. Create empty IntelliJ project
+2. Run `dataset_parser.py`, with `repo_path` in config.json set to empty
    project, `code_search_functions_path` to jsonl dataset
    from [code search net](https://huggingface.co/datasets/code_search_net)
-3. run `code_to_image/main_functions.py`
+3. Run `code_to_image/main_functions.py`
 
 ### Config
 
 Config is stored in config.json. Here you can specify data folders and change path to repository
 that is opened in intellij IDE. **If you manually moved Run panel or filetree panel, change
-visible_lines and visible_symbols to -1 and move it as you did in preparation steps**
+visible_lines and visible_symbols to -1 and move it as you did in preparation steps.**
 
 ### Stopping screenshots
 
 If you want to stop the program, move your mouse during screenshots. The program will exit after
 current file is finished. All traversed files are saved.
+<br/><br/>
 
-________
-# ImageToText
+
+
+# Image to text generation
 
 This part contains info about OCR processors used to extract text from the images.
 Available solutions could be found in `src/image_to_text/processors/`
@@ -105,47 +122,77 @@ First of all one should install Tesseract on the machine.
   Under Debian/Ubuntu you can use the package **tesseract-ocr**.
   For Mac OS users. please install homebrew package **tesseract**.
 
-Once Tesseract is installed the path to tesseract.exe file should be added to the local `.env` file. See `.env.example` template
+Once Tesseract is installed the path to tesseract.exe file should be added to the local `.env` file. See `.env.example` template.
   
 ## [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
-More advanced OCR for image processing. Supports text boxes which allow to add line spacing to the parsed text
+More advanced OCR for image processing. Supports text boxes which allow to add line spacing to the parsed text.
 
 ## Config
 
 All the processors classes contain `**kwargs` essential for the proper operation. Thus, `.json` formatted config templates are provided in `resources/configs/` 
+<br/><br/>
 
 
-________
-# Text2Code
+
+# Text to code generation
+
+For this task we settled on [CodeT5](https://github.com/salesforce/CodeT5)
+
+The model provides easy fine-tune interface (even for `refine` task), using which we created different models that can fix buggy code.  We trained it in Google Colab in our forked repository - [MassterMax/CodeT5](https://github.com/MassterMax/CodeT5) (in `CodeT5/TuningT5.ipynb` file). For `refine` task fine-tuning we use our dataset (nearly 600 examples of source code and OCR predicted text), with `codet5_small` model.
+
+Also, to improve quality, we calculate most common OCR mistakes and tried to augment dataset with them:
 
 
-here I will write something about text to code generation
+| Source code symbol | Symbol after OCR | Conditional error rate |
+| :---: | :-----------: | :---: |
+| O (capital letter) | 0 (zero) | 14.32% |
+| O (capital letter) | o | 10.01% |
+| S | s | 09.34% |
+| C | c | 09.30% |
+| 0 (zero) | o | 08.23% |
+| g | q | 06.28% |
+| } | 1 | 05.99% |
+| \| (vertical bar) | I (capital letter) | 04.44% |
+| " | u | 03.77% |
+| s | S | 03.48% |
 
-Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+
+We add `CodeT5/run_data_preprocessing.py` file that extends our source dataset with augmentations and creates datasets in model format. After that, the training pipeline starts with:
+```bash
+python3 run_exp.py --model_tag codet5_small --task refine --sub_task small
+```
+We now are trying to improve NLP model and searching for other solutions.
+<br/><br/>
+
+
 
 # Inference
 
-For launching the whole pipeline you can do the following:
+## Local usage
+
+For launching the whole pipeline you can run the following:
 
 ```shell
-cd image-to-code
-```
-
-```shell
+~$ /cd image-to-code
 /image-to-code$ PYTHONPATH=./ python3 \
                 src/telegram_handler/pipeline_manager.py \
                 /path/to/image.png
 ```
 
+## Usage with telegram bot
 
-________
+We are deploying the bot via GitHub action `.github/workflows/deploy_action.yml` and `run.sh` files, you can reuse them in your project.
 
-# Deploy
+[Image To Code Bot](https://t.me/image_to_code_bot) is ready to receive images to return OCR text and parsed code from them.
 
-Deploying via GitHub action .github/workflows/deploy_action.yml and run.sh
+Currently the bot supports two operations: 
+  - `/start` - the bot will greet you
+  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied T5Code tuned refine model)
+ <br/><br/>
 
-________
-# Telegram Bot
-[Image To Code Bot](https://t.me/image_to_code_bot)
-is ready to receive images to return text and code from them
+
+
+ # License
+
+The default license for this repository is Apache 2.0.
