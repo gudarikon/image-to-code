@@ -24,7 +24,7 @@ This is a repository with a source code of image to code generation. The reposit
 
 # Code to image dataset generator
 
-Dataset generator is separate tool from the whole pipeline. It was created specifically for this
+A dataset generator is separate tool from the whole pipeline. It was created specifically for this
 project to generate dataset which contains code and its screenshots.
 
 Generated datasets:
@@ -58,7 +58,7 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
    *Later breadcrumbs are restored in
    the* [Editor | General | Breadcrumbs](https://www.jetbrains.com/help/pycharm/settings-editor-breadcrumbs.html)
-   *menu.*
+   *menu*
 
 2. Open terminal window - click `Run` in the bottom panel, then move opened window to the bottom:
 
@@ -67,7 +67,7 @@ Image generator works in two modes: code blocks screenshots and functions screen
 3. Remove gutter icons: right click in gutter | Configure Gutter Icons... | Show gutter icons
 4. Open filetree and move it to the maximal left position.
 5. Set language to English.
-6. Compact View of inspections (top right corner)
+6. Compact View of inspections (top right corner):
 
    ![inspections.png](resources/images/inspections.png)
 
@@ -76,23 +76,23 @@ Image generator works in two modes: code blocks screenshots and functions screen
 
 ### Using code blocks screenshots
 
-1. open IntelliJ project
-2. set `repo_path` in config.json to project path
-3. run `code_to_image/main_code_blocks.py`
+1. Open IntelliJ project
+2. Set `repo_path` in config.json to project path
+3. Run `code_to_image/main_code_blocks.py`
 
 ### Using functions screenshots
 
-1. create empty IntelliJ project
-2. run `dataset_parser.py`, with `repo_path` in config.json set to empty
+1. Create empty IntelliJ project
+2. Run `dataset_parser.py`, with `repo_path` in config.json set to empty
    project, `code_search_functions_path` to jsonl dataset
    from [code search net](https://huggingface.co/datasets/code_search_net)
-3. run `code_to_image/main_functions.py`
+3. Run `code_to_image/main_functions.py`
 
 ### Config
 
 Config is stored in config.json. Here you can specify data folders and change path to repository
 that is opened in intellij IDE. **If you manually moved Run panel or filetree panel, change
-visible_lines and visible_symbols to -1 and move it as you did in preparation steps**
+visible_lines and visible_symbols to -1 and move it as you did in preparation steps.**
 
 ### Stopping screenshots
 
@@ -122,11 +122,11 @@ First of all one should install Tesseract on the machine.
   Under Debian/Ubuntu you can use the package **tesseract-ocr**.
   For Mac OS users. please install homebrew package **tesseract**.
 
-Once Tesseract is installed the path to tesseract.exe file should be added to the local `.env` file. See `.env.example` template
+Once Tesseract is installed the path to tesseract.exe file should be added to the local `.env` file. See `.env.example` template.
   
 ## [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
-More advanced OCR for image processing. Supports text boxes which allow to add line spacing to the parsed text
+More advanced OCR for image processing. Supports text boxes which allow to add line spacing to the parsed text.
 
 ## Config
 
@@ -137,7 +137,7 @@ All the processors classes contain `**kwargs` essential for the proper operation
 
 # Text to code generation
 
-here I will write something about text to code generation
+*here I will write something about text to code generation*
 
 Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 <br/><br/>
@@ -159,13 +159,13 @@ For launching the whole pipeline you can run the following:
 
 ## Usage with telegram bot
 
-We are deploying the bot via GitHub action `.github/workflows/deploy_action.yml` and `run.sh` files, you can reuse them in your project
+We are deploying the bot via GitHub action `.github/workflows/deploy_action.yml` and `run.sh` files, you can reuse them in your project.
 
-[Image To Code Bot](https://t.me/image_to_code_bot) is ready to receive images to return OCR text and parsed code from them
+[Image To Code Bot](https://t.me/image_to_code_bot) is ready to receive images to return OCR text and parsed code from them.
 
 Currently the bot supports two operations: 
   - `/start` - the bot will greet you
-  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied CodeT5 tuned refine model)
+  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied T5Code tuned refine model)
  <br/><br/>
 
 
