@@ -6,6 +6,7 @@ RepoParser
 Config
 config
 intellij
+IntelliJ
 json
 Tesseract
 tesseract
