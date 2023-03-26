@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import logging
 from unittest.mock import AsyncMock
 
 import pytest
@@ -17,4 +18,7 @@ async def test_show_hello():
     message_mock = AsyncMock(from_user=User(name))
     await show_hello_handler(message=message_mock)
     expected = f"Hello, {name}! Send me an image and I will extract code from it!:)"
+    logging.info(message_mock.answer)
+    logging.info(dir(message_mock.answer))
+    logging.info(vars(message_mock.answer))
     assert expected == message_mock.answer.text
