@@ -43,6 +43,6 @@ async def test_show_hello_handler():
 
 @pytest.mark.asyncio
 async def test_photo_handler():
-    message_mock = AsyncMock(photo=PhotoSizeMock("test_img.png"), bot=BotMock())
+    message_mock = AsyncMock(photo=[PhotoSizeMock("test_img.png")], bot=BotMock())
     await photo_handler(message=message_mock)
     message_mock.answer.assert_called_with(text="123")
