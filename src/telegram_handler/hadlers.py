@@ -20,7 +20,7 @@ async def photo_handler(message: types.Message):
     file_ext = file_info.file_path.split(".")[-1]
 
     file_name = f"{uuid4()}.{file_ext}"
-    await message.photo[-1].download(file_name)
+    await photo_size.download(file_name)
     logging.info(f"downloaded: {file_name}")
 
     file_path = Path(file_name)
