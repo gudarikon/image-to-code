@@ -20,7 +20,7 @@ async def test_show_hello():
     expected = f"Hello, {name}! Send me an image and I will extract code from it!:)"
     logging.info(vars(message_mock.answer))
     logging.info("===")
-    res = message_mock()
+    res = await message_mock()
     logging.info(res)
     logging.info(vars(res))
     assert expected == message_mock.answer.text
