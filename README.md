@@ -66,7 +66,7 @@ First of all one should install Tesseract on the machine.
   Under Debian/Ubuntu you can use the package **tesseract-ocr**.
   For Mac OS users. please install homebrew package **tesseract**.
 
-Once Tesseract is installed the path to tessract.exe file should be added to the local `.env` file. See `.env.example` template
+Once Tesseract is installed the path to tesseract.exe file should be added to the local `.env` file. See `.env.example` template
   
 ## [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
@@ -78,7 +78,7 @@ All the processors classes contain `**kwargs` essential for the proper operation
 
 ________
 # Text2Code
-UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 
 
 # Inference

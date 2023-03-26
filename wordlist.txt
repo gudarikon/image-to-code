@@ -17,3 +17,4 @@ exe
 PaddleOCR
 github
 yml
+filetree
