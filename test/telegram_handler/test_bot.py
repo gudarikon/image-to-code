@@ -8,7 +8,7 @@ from src.telegram_handler.hadlers import show_hello_handler
 
 @dataclass
 class User:
-    name: str
+    username: str
 
 
 @pytest.mark.asyncio
