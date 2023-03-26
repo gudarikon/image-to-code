@@ -124,8 +124,6 @@ here I will write something about text to code generation
 
 Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
 
-UPD: we settled on [T5Code](https://github.com/salesforce/CodeT5)
-
 # Inference
 
 For launching the whole pipeline you can do the following:

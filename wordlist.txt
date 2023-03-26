@@ -1,5 +1,6 @@
 NLP
 dataset
+datasets
 CodeToImageGenerator
 ImageToText
 RepoParser
@@ -7,7 +8,11 @@ Config
 config
 intellij
 IntelliJ
+PyCharm
+PhpStorm
+GoLand
 json
+jsonl
 Tesseract
 tesseract
 OSX
