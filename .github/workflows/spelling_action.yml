@@ -8,6 +8,7 @@ on:
       - master
 jobs:
   build:
+    name: spelling check action
     runs-on: ubuntu-latest
     steps:
     - name: "Checkout Repo"
