@@ -137,9 +137,32 @@ All the processors classes contain `**kwargs` essential for the proper operation
 
 # Text to code generation
 
-*here I will write something about text to code generation*
+For this task we settled on [CodeT5](https://github.com/salesforce/CodeT5)
 
-Update: we settled on [T5Code](https://github.com/salesforce/CodeT5)
+The model provides easy fine-tune interface (even for `refine` task), using which we created different models that can fix buggy code.  We trained it in Google Colab in our forked repository - [MassterMax/CodeT5](https://github.com/MassterMax/CodeT5) (in `CodeT5/TuningT5.ipynb` file). For `refine` task fine-tuning we use our dataset (nearly 600 examples of source code and OCR predicted text), with `codet5_small` model.
+
+Also, to improve quality, we calculate most common OCR mistakes and tried to augmentate dataset with them:
+
+
+| Source code symbol | Symbol after OCR | Conditional error rate |
+| :---: | :-----------: | :---: |
+| O (capital letter) | 0 (zero) | 14.32% |
+| O (capital letter) | o | 10.01% |
+| S | s | 09.34% |
+| C | c | 09.30% |
+| 0 (zero) | o | 08.23% |
+| g | q | 06.28% |
+| } | 1 | 05.99% |
+| \| (vertical bar) | I (capital letter) | 04.44% |
+| " | u | 03.77% |
+| s | S | 03.48% |
+
+
+We add `CodeT5/run_data_preprocessing.py` file that extends our source dataset with augmentations and creates datasets in model format. After that, the training pipeline starts with:
+```bash
+python3 run_exp.py --model_tag codet5_small --task refine --sub_task small
+```
+We now are trying to improve NLP model and searching for other solutions.
 <br/><br/>
 
 
