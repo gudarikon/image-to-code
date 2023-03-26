@@ -141,7 +141,7 @@ For this task we settled on [CodeT5](https://github.com/salesforce/CodeT5)
 
 The model provides easy fine-tune interface (even for `refine` task), using which we created different models that can fix buggy code.  We trained it in Google Colab in our forked repository - [MassterMax/CodeT5](https://github.com/MassterMax/CodeT5) (in `CodeT5/TuningT5.ipynb` file). For `refine` task fine-tuning we use our dataset (nearly 600 examples of source code and OCR predicted text), with `codet5_small` model.
 
-Also, to improve quality, we calculate most common OCR mistakes and tried to augmentate dataset with them:
+Also, to improve quality, we calculate most common OCR mistakes and tried to augment dataset with them:
 
 
 | Source code symbol | Symbol after OCR | Conditional error rate |

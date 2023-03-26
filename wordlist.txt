@@ -29,3 +29,6 @@ Arifkhanov
 Azamatkhan
 Gudzikevich
 Kononov
+CodeT
+Colab
+MassterMax
