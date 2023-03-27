@@ -53,4 +53,3 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           files: ./coverage.xml
-          gcov_ignore: .src/telegram_handler/bot.py
