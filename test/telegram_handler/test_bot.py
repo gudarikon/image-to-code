@@ -22,8 +22,9 @@ class PhotoSizeMock:
         self.file_id = file_id
         assert "." in file_id
 
-    async def download(self):
-        # use with . in tests
+    async def download(self, new_name):
+        # use with . in tests, new_name will be ignored
+        assert new_name is not None
         assert self.file_id in os.listdir('.')
 
 
