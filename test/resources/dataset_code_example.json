@@ -1,0 +1,12 @@
+{
+  "code": [
+    "    @CheckReturnValue\n",
+    "    @NonNull\n",
+    "    @SchedulerSupport(SchedulerSupport.NONE)\n",
+    "    public static <T> Observable<T> amb(Iterable<? extends ObservableSource<? extends T>> sources) {\n",
+    "        ObjectHelper.requireNonNull(sources, \"sources is null\");\n",
+    "        return RxJavaPlugins.onAssembly(new ObservableAmb<T>(null, sources));\n",
+    "    }\n"
+  ],
+  "language": "java"
+}

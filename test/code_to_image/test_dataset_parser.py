@@ -25,6 +25,8 @@ def test_parsing(dataset_parser_config_path):
         in_memory=True
     )
 
+    _check_functions_are_not_big(functions)
+
 
 def _check_functions_are_not_big(functions: str):
     line_count = 0

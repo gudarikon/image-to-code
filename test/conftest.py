@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from dotenv import dotenv_values
 from PIL import Image
+from dotenv import dotenv_values
 import pytest
 
 
@@ -14,6 +14,16 @@ def project_path() -> Path:
 @pytest.fixture(scope="module")
 def env_path(project_path) -> Path:
     return project_path / ".env"
+
+
+@pytest.fixture(scope="module")
+def resources_path() -> Path:
+    """
+    Path to the test resources folder
+
+    :return: Path
+    """
+    return Path(__file__).parent / "resources"
 
 
 @pytest.fixture(scope="module")
@@ -33,6 +43,15 @@ def image_path() -> Path:
     :return: Path
     """
     return Path(__file__).parent / "resources" / "image.png"
+
+
+@pytest.fixture(scope="module")
+def code_path() -> Path:
+    """
+    Path to the example of code created by dataset generator
+    :return: Path
+    """
+    return Path(__file__).parent / "resources" / "dataset_code_example.json"
 
 
 @pytest.fixture(scope="module")
@@ -105,7 +124,8 @@ def tesseract_config(tesseract_config_path, env_path) -> dict:
     """
     with open(tesseract_config_path, "r") as fr:
         config = json.load(fr)
-        config["path_to_tesseract"] = str(Path(dotenv_values(env_path).get("PATH_TO_TESSERACT", "")))
+        config["path_to_tesseract"] = str(
+            Path(dotenv_values(env_path).get("PATH_TO_TESSERACT", "")))
     return config
 
 
