@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import logging
 import os
 from pathlib import Path
+import shutil
 from unittest.mock import AsyncMock
 
 import pytest
@@ -27,8 +28,8 @@ class PhotoSizeMock:
     async def download(self, new_name):
         assert new_name is not None
         path = Path(self.file_id)
-        logging.info(f"will mock-download to {self.project_path / new_name}")
-        os.popen(f'cp {path} {self.project_path / new_name}')
+        logging.info(f"will mock-download from {str(path)} to {self.project_path / new_name}")
+        shutil.copyfile(str(path), str(self.project_path / new_name))
         logging.info(f"all content: {os.listdir(str(self.project_path))}")
         logging.info(f"all parent's content: {os.listdir(str(self.project_path.parent))}")
 
