@@ -3,7 +3,7 @@ import os
 
 from aiogram import Bot, Dispatcher, executor, types
 
-from .handlers import photo_handler, show_hello_handler
+from src.telegram_handler.handlers import photo_handler, show_hello_handler
 
 BOT_API_TOKEN = os.getenv("BOT_API_TOKEN")
 
