@@ -10,7 +10,6 @@ from typing import List, Tuple
 from src.code_to_image.config_builder import ConfigBuilder
 from src.code_to_image.repo_parser import get_language, parse_repo
 
-
 DIGIT_INC = 9.5
 GUTTER_BASE = 35
 
@@ -30,7 +29,7 @@ config = ConfigBuilder().get_config()
 
 def open_file(path: str):
     import pyautogui
-    
+
     if platform.system() == "Darwin":
         pyautogui.hotkey("cmd", "shift", "o")
     else:
