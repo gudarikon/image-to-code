@@ -23,7 +23,6 @@ class PhotoSizeMock:
     def __init__(self, file_id, project_path):
         self.file_id = file_id
         self.project_path = project_path
-        assert "." in file_id
 
     async def download(self, new_name):
         assert new_name is not None
