@@ -20,14 +20,16 @@ class FileInfoMock:
 
 
 class PhotoSizeMock:
-    def __init__(self, file_id):
+    def __init__(self, file_id, project_path):
         self.file_id = file_id
+        self.project_path = project_path
         assert "." in file_id
 
     async def download(self, new_name):
         assert new_name is not None
         path = Path(self.file_id)
-        os.popen(f'cp {path} {new_name}')
+        logging.info(f"will mock-download to {self.project_path / new_name}")
+        os.popen(f'cp {path} {self.project_path / new_name}')
 
 
 class BotMock:
@@ -47,8 +49,7 @@ async def test_show_hello_handler():
 @pytest.mark.asyncio
 async def test_photo_handler(request):
     image_path = request.getfixturevalue("image_path")
-    logging.info(image_path)
-    logging.info(request.getfixturevalue("project_path"))
-    message_mock = AsyncMock(photo=[PhotoSizeMock("test/resources/image.png")], bot=BotMock())
+    project_path = request.getfixturevalue("project_path")
+    message_mock = AsyncMock(photo=[PhotoSizeMock(image_path, project_path)], bot=BotMock())
     await photo_handler(message=message_mock)
     message_mock.answer.assert_called_with(text="123")
