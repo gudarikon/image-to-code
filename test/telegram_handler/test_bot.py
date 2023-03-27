@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import os
+from pathlib import Path
 from unittest.mock import AsyncMock
 
 import pytest
@@ -23,9 +24,9 @@ class PhotoSizeMock:
         assert "." in file_id
 
     async def download(self, new_name):
-        # use with . in tests, new_name will be ignored
         assert new_name is not None
-        assert self.file_id in os.listdir('.')
+        path = Path(self.file_id)
+        os.popen(f'cp {path} {new_name}')
 
 
 class BotMock:
@@ -44,6 +45,6 @@ async def test_show_hello_handler():
 
 @pytest.mark.asyncio
 async def test_photo_handler():
-    message_mock = AsyncMock(photo=[PhotoSizeMock("test_img.png")], bot=BotMock())
+    message_mock = AsyncMock(photo=[PhotoSizeMock("test/resources/image.png")], bot=BotMock())
     await photo_handler(message=message_mock)
     message_mock.answer.assert_called_with(text="123")
