@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from src.telegram_handler.hadlers import photo_handler, show_hello_handler
+from src.telegram_handler.handlers import photo_handler, show_hello_handler
 
 
 @dataclass
@@ -33,7 +33,7 @@ class PhotoSizeMock:
 
 class BotMock:
     async def get_file(self, file_id):
-        return FileInfoMock(file_id)
+        return FileInfoMock(str(file_id))
 
 
 @pytest.mark.asyncio
