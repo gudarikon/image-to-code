@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import logging
 import os
 from pathlib import Path
 from unittest.mock import AsyncMock
@@ -44,7 +45,10 @@ async def test_show_hello_handler():
 
 
 @pytest.mark.asyncio
-async def test_photo_handler():
+async def test_photo_handler(request):
+    image_path = request.getfixturevalue("image_path")
+    logging.info(image_path)
+    logging.info(request.getfixturevalue("project_path"))
     message_mock = AsyncMock(photo=[PhotoSizeMock("test/resources/image.png")], bot=BotMock())
     await photo_handler(message=message_mock)
     message_mock.answer.assert_called_with(text="123")
