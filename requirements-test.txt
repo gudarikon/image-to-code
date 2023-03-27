@@ -16,3 +16,4 @@ torch
 tqdm~=4.62.3
 transformers>=4.15.0
 typing~=3.7.4.3
+pytest-asyncio~=0.21.0
