@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-import logging
-import os
 from pathlib import Path
 import shutil
 from unittest.mock import AsyncMock
@@ -28,10 +26,7 @@ class PhotoSizeMock:
     async def download(self, new_name):
         assert new_name is not None
         path = Path(self.file_id)
-        logging.info(f"will mock-download from {str(path)} to {self.project_path / new_name}")
         shutil.copyfile(str(path), str(self.project_path / new_name))
-        logging.info(f"all content: {os.listdir(str(self.project_path))}")
-        logging.info(f"all parent's content: {os.listdir(str(self.project_path.parent))}")
 
 
 class BotMock:
@@ -54,4 +49,7 @@ async def test_photo_handler(request):
     project_path = request.getfixturevalue("project_path")
     message_mock = AsyncMock(photo=[PhotoSizeMock(image_path, project_path)], bot=BotMock())
     await photo_handler(message=message_mock)
-    message_mock.answer.assert_called_with(text="123")
+    result = message_mock.answer.call_args.kwargs["text"]
+    assert "ocr text" in result
+    assert "code" in result
+    assert len(result.split("\n")) > 4
