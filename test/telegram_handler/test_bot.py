@@ -29,6 +29,7 @@ class PhotoSizeMock:
         path = Path(self.file_id)
         logging.info(f"will mock-download to {self.project_path / new_name}")
         os.popen(f'cp {path} {self.project_path / new_name}')
+        logging.info(f"all content: {os.listdir(str(self.project_path))}")
 
 
 class BotMock:
