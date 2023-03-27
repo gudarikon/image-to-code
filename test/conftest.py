@@ -17,6 +17,16 @@ def env_path(project_path) -> Path:
 
 
 @pytest.fixture(scope="module")
+def resources_path() -> Path:
+    """
+    Path to the test resources folder
+
+    :return: Path
+    """
+    return Path(__file__).parent / "resources"
+
+
+@pytest.fixture(scope="module")
 def dataset_parser_config_path() -> Path:
     """
     Path to config for dataset_parser
@@ -33,6 +43,16 @@ def image_path() -> Path:
     :return: Path
     """
     return Path(__file__).parent / "resources" / "image.png"
+
+
+@pytest.fixture(scope="module")
+def code_path() -> Path:
+    """
+    Path to the example of code created by dataset generator
+    :return: Path
+    """
+    return Path(__file__).parent / "resources" / "dataset_code_example.json"
+
 
 
 @pytest.fixture(scope="module")
