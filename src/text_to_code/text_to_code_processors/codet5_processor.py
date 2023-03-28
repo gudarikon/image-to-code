@@ -3,7 +3,7 @@ from typing import List, Union
 
 from transformers import RobertaTokenizer, T5Config, T5ForConditionalGeneration
 
-from src import ABCSingleton
+from src import ABCSingleton, get_project_path, unify_path
 from src.text_to_code.data_processors import CodeT5DataProcessor
 from .text_to_code_processor import TextToCodeProcessor
 
@@ -19,7 +19,9 @@ class CodeT5Processor(TextToCodeProcessor, metaclass=ABCSingleton):
                                                        " path to model's bin file "
         self._tokenizer = RobertaTokenizer.from_pretrained('Salesforce/codet5-small')
         config = T5Config.from_pretrained('Salesforce/codet5-small')
-        self._model = T5ForConditionalGeneration.from_pretrained(kwargs["model_bin_path"], config=config)
+        model_path = get_project_path() / unify_path(kwargs["model_bin_path"])
+
+        self._model = T5ForConditionalGeneration.from_pretrained(str(model_path), config=config)
         self._processor = CodeT5DataProcessor()
 
     def predict(self, text: Union[str, List[str]], extra_length=5, **kwargs) -> str:
