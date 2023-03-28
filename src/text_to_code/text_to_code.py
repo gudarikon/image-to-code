@@ -28,8 +28,8 @@ def text_to_code(text: Union[str, List[str]], text_to_code_processor: str, proce
 def func_text_to_code(text_path: Path, text_to_code_processor: str, path_to_processor_config: Path):
     with open(text_path, "r") as f:
         text = [line.rstrip() for line in f]
-    with open(path_to_processor_config, "r") as fr:
-        config = json.load(fr)
+    with open(path_to_processor_config, "r") as f:
+        config = json.load(f)
     print(text_to_code(text, text_to_code_processor, config))
 
 
