@@ -188,7 +188,7 @@ We are deploying the bot via GitHub action `.github/workflows/deploy_action.yml`
 
 Currently the bot supports two operations: 
   - `/start` - the bot will greet you
-  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied T5Code tuned refine model)
+  - `<sent image>` - the bot will answer with two blocks - OCR text result and code result (after applied T5Code tuned refine model). Note that the bot will reply only for one non-document image per request
  <br/><br/>
 
 
