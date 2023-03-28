@@ -1,8 +1,11 @@
 from os import sep
 from pathlib import Path
+from typing import Union
 
 
-def unify_path(str_path: str) -> str:
+def unify_path(str_path: Union[str, Path]) -> str:
+    if isinstance(str_path, Path):
+        str_path = str(str_path)
     if sep == "\\":
         return str_path.replace("/", "\\")
     if sep == "/":
