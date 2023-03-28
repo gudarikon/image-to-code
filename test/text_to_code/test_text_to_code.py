@@ -2,6 +2,7 @@ import pytest
 
 from src.text_to_code.text_to_code_processors import *
 from src.text_to_code import get_processor, text_to_code
+from src.text_to_code.text_to_code import func_text_to_code
 
 
 @pytest.mark.parametrize(
@@ -44,3 +45,21 @@ def test_img_to_text(src_text, model_name, model_config, request):
 
     assert type(text) == str
     assert len(text) > 0
+
+
+@pytest.mark.parametrize(
+    ("text_path", "processor_name", "processor_config_path"),
+    [
+        ("ocr_example_text_path", "DummyProcessor", "code_t5_config_path")
+    ]
+)
+def test_func_text_to_code(text_path, processor_name, processor_config_path, request, capsys):
+    text_path = request.getfixturevalue(text_path)
+    processor_config_path = request.getfixturevalue(processor_config_path)
+    func_text_to_code(text_path, processor_name, processor_config_path)
+    printed_text = capsys.readouterr().out
+
+    assert type(printed_text) == str
+    assert len(printed_text) > 0
+
+

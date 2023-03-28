@@ -1,3 +1,3 @@
 {
-  "model_bin_path": "YOUR_PATH_HERE"
+  "model_bin_path": "/resources/model/codet5_model.bin"
 }

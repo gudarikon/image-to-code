@@ -13,12 +13,12 @@ from src.code_to_image.crop import crop_code, crop_image
 from src.code_to_image.main_code_blocks import LINE_HEIGHT
 
 
-def test_crop_image(image_path, resources_path):
+def test_crop_image(image_path, tmp_path):
     json_id = 1
-    crop_image(str(image_path), json_id, str(resources_path))
+    crop_image(str(image_path), json_id, str(tmp_path))
 
     image_height = Image.open(image_path).size[1]
-    cropped_image_height = Image.open(resources_path / (str(json_id) + ".png")).size[1]
+    cropped_image_height = Image.open(tmp_path / (str(json_id) + ".png")).size[1]
 
     assert image_height == cropped_image_height + floor(LINE_HEIGHT)
 

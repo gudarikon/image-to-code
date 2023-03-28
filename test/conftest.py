@@ -5,10 +5,12 @@ from PIL import Image
 from dotenv import dotenv_values
 import pytest
 
+from src import get_project_path
+
 
 @pytest.fixture(scope="module")
 def project_path() -> Path:
-    return Path(__file__).parent.parent
+    return get_project_path()
 
 
 @pytest.fixture(scope="module")
@@ -37,12 +39,42 @@ def dataset_parser_config_path() -> Path:
 
 
 @pytest.fixture(scope="module")
-def image_path() -> Path:
+def images_folder_path() -> Image:
+    """
+    Gets tests images folder
+
+    :return: Path to folder with test images
+    """
+    return Path(__file__).parent / "resources" / "images_folder"
+
+
+@pytest.fixture(scope="module")
+def codes_folder_path() -> Image:
+    """
+    Gets tests codes folder
+
+    :return: Path to folder with test codes
+    """
+    return Path(__file__).parent / "resources" / "codes_folder"
+
+
+@pytest.fixture(scope="module")
+def ocr_preds_folder_path() -> Image:
+    """
+    Gets tests ocr predictions folder
+
+    :return: Path to folder with test ocr predictions
+    """
+    return Path(__file__).parent / "resources" / "ocr_preds_folder"
+
+
+@pytest.fixture(scope="module")
+def image_path(images_folder_path) -> Path:
     """
     Path to the source image
     :return: Path
     """
-    return Path(__file__).parent / "resources" / "image.png"
+    return images_folder_path / "image1.png"
 
 
 @pytest.fixture(scope="module")
@@ -139,14 +171,13 @@ def code_t5_config_path() -> Path:
 
 
 @pytest.fixture(scope="module")
-def code_t5_config(code_t5_config_path) -> dict:
+def code_t5_config(code_t5_config_path, project_path) -> dict:
     """
     CodeT5Processor config by path
     :return: dict with CodeT5Processor configs
     """
     with open(code_t5_config_path, "r") as fr:
         config = json.load(fr)
-        config["model_bin_path"] = Path(__file__).parent.parent / Path(config["model_bin_path"])
     return config
 
 
@@ -163,7 +194,7 @@ def pytest_sessionstart(session):
     session.skip_variables = {
         "ocr_name": (
             ["TesseractProcessor"],
-            dotenv_values(Path(__file__).parent.parent / ".env").get("PATH_TO_TESSERACT", "") == ""
+            dotenv_values(get_project_path() / ".env").get("PATH_TO_TESSERACT", "") == ""
         )
     }
 

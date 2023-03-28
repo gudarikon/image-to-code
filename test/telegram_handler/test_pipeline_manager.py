@@ -1,6 +1,7 @@
 import pytest
 
-from src.telegram_handler.pipeline_manager import img_to_code
+from src.telegram_handler import img_to_code
+from src.telegram_handler.pipeline_manager import func_img_to_code
 
 
 @pytest.mark.parametrize(
@@ -42,3 +43,10 @@ def test_img_to_code(
     assert len(text) > 0
 
 
+def test_func_image_to_code(image_path, capsys):
+    func_img_to_code(image_path)
+
+    printed_text = capsys.readouterr().out
+
+    assert type(printed_text) == str
+    assert len(printed_text) > 0

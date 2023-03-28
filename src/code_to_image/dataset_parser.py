@@ -4,6 +4,7 @@ from typing import TextIO
 
 from .config_builder import ConfigBuilder
 from .main_code_blocks import MAX_SYMBOLS
+from src import get_project_path, unify_path
 
 
 class DatasetParser:
@@ -40,7 +41,7 @@ class DatasetParser:
             return
 
     def parse_functions_into_files(self, functions_num_in_file: int = 100, in_memory: bool = False):
-        with open(self.config.code_search_functions_path, 'r') as json_file:
+        with open(get_project_path() / unify_path(self.config.code_search_functions_path), 'r') as json_file:
             json_list = list(json_file)
 
         i = 0
