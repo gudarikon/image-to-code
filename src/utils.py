@@ -1,12 +1,11 @@
 from os import sep
-from pathlib import Path, PurePosixPath, PureWindowsPath
-
+from pathlib import Path
 
 def unify_path(str_path: str) -> str:
     if sep == "\\":
-        return str(PureWindowsPath(Path(str_path)))
+        return str_path.replace("/", "\\")
     if sep == "/":
-        return str(PurePosixPath(Path(str_path)))
+        return str_path.replace("\\", "/")
     assert ValueError("Unknown OS file delimiter")
 
 
