@@ -47,6 +47,7 @@ async def photo_handler(message: types.Message):
 async def document_handler(message: types.Message):
     file_id = message.document.file_id
     if message.document.mime_base != "image":
-        await message.answer(text="Sorry, I do not understand you:(", reply=True)
+        await message.answer(text="Sorry, I do not understand you:( Send me an image, please!", reply=True)
+        return
     file = await message.bot.get_file(file_id)
     await _process_image(message, file.file_path)
