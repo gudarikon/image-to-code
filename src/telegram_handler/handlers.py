@@ -30,7 +30,7 @@ async def photo_handler(message: types.Message):
         image = Image.open(file_path).copy()
     logging.info(image)
 
-    ocr_text, code = img_to_code(image, return_ocr_result=True)
+    ocr_text, code = img_to_code(image, return_ocr_result=False)
 
     text = "\n\n".join(["ocr text:", f"`{ocr_text}`", "code:", f"`{code}`"])
     logging.info(text)
