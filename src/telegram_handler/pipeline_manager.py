@@ -15,10 +15,15 @@ def img_to_code(image: Image,
                 return_ocr_result: bool = False):
     if ocr_config is None and ocr_processor == "PaddleProcessor":
         ocr_config = {"lang": "en"}
-    if processor_config is None and text_to_code_processor == "CodeT5Processor":
-        processor_config = {
-            "model_bin_path": Path(__file__).parent.parent.parent.resolve() / "resources" / "model" / "codet5_model.bin"
-        }
+    if processor_config is None:
+        if text_to_code_processor == "CodeT5Processor":
+            processor_config = {
+                "model_bin_path": (
+                        Path(__file__).parent.parent.parent.resolve() / "resources" / "model" / "codet5_model.bin"
+                )
+            }
+        else:
+            processor_config = {}
 
     raw_text = img_to_text(image, ocr_processor, ocr_config, True)
     parsed_text = text_to_code(raw_text, text_to_code_processor, processor_config)
