@@ -25,8 +25,8 @@ async def handle_photo(message: types.Message):
 @dp.message_handler(content_types=["document"])
 async def handle_file(message: types.Message):
     file_id = message.document.file_id
-    logging.info(dir(message.document))
-    logging.info(vars(message.document))
+    logging.debug(dir(message.document))
+    logging.debug(vars(message.document))
     file = await bot.get_file(file_id)
     file_path = file.file_path
     await message.answer(text=f"file path is {file_path} :)")
