@@ -10,7 +10,7 @@ from src.text_to_code import text_to_code
 def img_to_code(image: Image,
                 ocr_processor: str = "PaddleProcessor",
                 ocr_config: dict = None,
-                text_to_code_processor: str = "CodeT5Processor",
+                text_to_code_processor: str = "DummyProcessor",
                 processor_config: dict = None,
                 return_ocr_result: bool = False):
     if ocr_config is None and ocr_processor == "PaddleProcessor":
