@@ -22,13 +22,13 @@ async def _process_image(message: types.Message, image_path: str):
         file_ext = image_path.split(".")[-1]
         file_name = f"{uuid4()}.{file_ext}"
         await message.bot.download_file(image_path, dir_path / file_name)
-        logging.info(f"downloaded: {file_name}")
+        logging.debug(f"downloaded: {file_name}")
 
         file_path = dir_path / file_name
-        logging.info(f"file path: {file_path}")
+        logging.debug(f"file path: {file_path}")
 
         image = Image.open(file_path).copy()
-    logging.info(image)
+    logging.debug(image)
 
     ocr_text, code = img_to_code(image, return_ocr_result=False)
 
@@ -36,7 +36,7 @@ async def _process_image(message: types.Message, image_path: str):
     if ocr_text is not None:
         text = f"ocr text:\n\n`{ocr_text}`\n\n"
     text = f"{text}code:\n\n`{code}`"
-    logging.info(text)
+    logging.debug(text)
     await message.answer(text=text, parse_mode="Markdown", reply=True)
 
 
