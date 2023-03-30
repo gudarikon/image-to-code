@@ -31,10 +31,10 @@ async def photo_handler(message: types.Message):
     logging.info(image)
 
     ocr_text, code = img_to_code(image, return_ocr_result=False)
-    
+
     text = ""
     if ocr_text is not None:
-        text = f"ocr text:\n\n`{ocr_text}`\n\n")
+        text = f"ocr text:\n\n`{ocr_text}`\n\n"
     text = f"{text}code:\n\n`{code}`"
     logging.info(text)
     await message.answer(text=text, parse_mode="Markdown", reply=True)

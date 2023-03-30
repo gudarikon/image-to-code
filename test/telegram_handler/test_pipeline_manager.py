@@ -35,8 +35,8 @@ def test_img_to_code(
         return_ocr_result
     )
 
+    ocr_text, text = text
     if return_ocr_result:
-        ocr_text, text = text
         assert type(ocr_text) == str
         assert len(ocr_text) > 0
     assert type(text) == str
