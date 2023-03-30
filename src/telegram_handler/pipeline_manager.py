@@ -25,7 +25,7 @@ def img_to_code(image: Image,
 
     if return_ocr_result:
         return raw_text, parsed_text
-    return parsed_text
+    return None, parsed_text
 
 
 @click.argument("img_path", type=Path)
