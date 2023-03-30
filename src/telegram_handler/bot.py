@@ -22,7 +22,7 @@ async def show_hello(message: types.Message):
 async def handle_photo(message: types.Message):
     await photo_handler(message)
 
-@dp.message_handler(content_types=["file"])
+@dp.message_handler(content_types=["document"])
 async def handle_file(message: types.Message):
     file_id = message.document.file_id
     file = await bot.get_file(file_id)
