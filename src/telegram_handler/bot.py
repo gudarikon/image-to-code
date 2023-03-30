@@ -27,7 +27,7 @@ async def handle_file(message: types.Message):
     file_id = message.document.file_id
     print(dir(message.document))
     print(vars(message.document))
-    print(message.document.mime_base())
+    print(message.document.mime_base)
     logging.debug(dir(message.document))
     logging.debug(vars(message.document))
     file = await bot.get_file(file_id)
