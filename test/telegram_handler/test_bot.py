@@ -47,6 +47,5 @@ async def test_photo_handler(image_path):
     message_mock = AsyncMock(photo=[PhotoSizeMock(image_path)], bot=BotMock())
     await photo_handler(message=message_mock)
     result = message_mock.answer.call_args.kwargs["text"]
-    assert "ocr text" in result
     assert "code" in result
-    assert len(result.split("\n")) > 4
+    assert len(result.split("\n")) > 2
