@@ -21,7 +21,8 @@ async def photo_handler(message: types.Message):
     with tempfile.TemporaryDirectory() as tmpdirname:
         dir_path = Path(tmpdirname)
         file_name = f"{uuid4()}.{file_ext}"
-        await photo_size.download(destination_file=dir_path / file_name)
+        await message.bot.download_file(file_info.file_path, dir_path / file_name)
+        # await photo_size.download(destination_file=dir_path / file_name)
         logging.info(f"downloaded: {file_name}")
 
         file_path = dir_path / file_name
