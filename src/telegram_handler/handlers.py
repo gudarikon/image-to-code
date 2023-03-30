@@ -44,7 +44,7 @@ async def document_handler(message: types.Message):
     file_id = message.document.file_id
     if message.document.mime_base != "image":
         await message.answer(text="Sorry, I do not understand you:(", reply=True)
-    file = await bot.get_file(file_id)
+    file = await message.bot.get_file(file_id)
     tg_file_path = file.file_path
     file_ext = tg_file_path.split(".")[-1]
 
