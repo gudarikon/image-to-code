@@ -22,6 +22,14 @@ async def show_hello(message: types.Message):
 async def handle_photo(message: types.Message):
     await photo_handler(message)
 
+@dp.message_handler(content_types=["file"])
+async def handle_file(message: types.Message):
+    file_id = message.document.file_id
+    file = await bot.get_file(file_id)
+    file_path = file.file_path
+    await message.answer(text=f"file path is {file_path} :)")
+    # await bot.download_file(file_path, "text.txt")
+
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
