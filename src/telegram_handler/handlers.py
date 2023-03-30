@@ -8,7 +8,7 @@ from PIL import Image
 
 from src.telegram_handler import img_to_code
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 
 async def show_hello_handler(message: types.Message):

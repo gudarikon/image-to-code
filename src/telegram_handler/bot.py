@@ -1,4 +1,3 @@
-import logging
 import os
 
 from aiogram import Bot, Dispatcher, executor, types
@@ -6,8 +5,6 @@ from aiogram import Bot, Dispatcher, executor, types
 from src.telegram_handler.handlers import document_handler, photo_handler, show_hello_handler
 
 BOT_API_TOKEN = os.getenv("BOT_API_TOKEN")
-
-logging.basicConfig(level=logging.INFO)
 
 bot = Bot(BOT_API_TOKEN)
 dp = Dispatcher(bot)
