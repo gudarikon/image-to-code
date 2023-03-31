@@ -22,15 +22,14 @@ class PhotoSizeMock:
     def __init__(self, file_id):
         self.file_id = file_id
 
-    async def download(self, destination_file):
-        assert destination_file is not None
-        path = Path(self.file_id)
-        shutil.copyfile(path, destination_file)
-
 
 class BotMock:
     async def get_file(self, file_id):
         return FileInfoMock(str(file_id))
+
+    async def download_file(self, file_path, destination):
+        file_path = Path(file_path)
+        shutil.copyfile(file_path, destination)
 
 
 @pytest.mark.asyncio
